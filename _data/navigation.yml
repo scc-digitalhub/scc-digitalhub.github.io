@@ -1,0 +1,13 @@
+# main links
+main:
+  - title: "About"
+    url: /about/
+  - title: "Documentation"
+    url: https://digitalhub.readthedocs.io/
+    target: "_blank"
+  - title: "Blog"
+    url: /archive/
+  # - title: "Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/

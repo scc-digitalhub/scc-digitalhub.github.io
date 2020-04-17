@@ -1,0 +1,129 @@
+raman:
+  name        : "Raman Kazhamiakin"
+  bio         : "CTO, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/raman"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:raman@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/raman-kazhamiakin/"
+
+acelepija:
+  name        : "Albana Celepija"
+  bio         : "Software Developer, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/acelepija"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:acelepija@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/albana-celepija/"
+
+chini:
+  name        : "Matteo Chini"
+  bio         : "Software Developer, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/m.chini"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:matteo.chini@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/matteo-chini/"
+
+ffais:
+  name        : "Fabio Fais"
+  bio         : "DevOps, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/ffais"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:ffais@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/fabio-fais/"
+
+pfava:
+  name        : "Patrizio Fava"
+  bio         : "UX Designer, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/pfava"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:pfava@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/patrizio-fava/"
+
+khurshid:
+  name        : "Nawaz Khurshid"
+  bio         : "Software Engineer, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/khurshid"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:khurshid@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/nawaz-khurshid/"
+
+mmartini:
+  name        : "Matteo Martini"
+  bio         : "Data Scientist, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/mmartini"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:mmartini@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/matteo-martini/"
+
+nori:
+  name        : "Michele Nori"
+  bio         : "Software Architect, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/nori"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:nori@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/michele-nori/"      
+
+perillo: 
+  name        : "Mirko Perillo"
+  bio         : "Software Engineer, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/m.perillo"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:mirko.perillo@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/mirko-perillo/"   
+
+msaloni: 
+  name        : "Matteo Saloni"
+  bio         : "Software Architect, SCC Lab, FBK"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/msaloni"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:msaloni@fbk.eu"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://ict.fbk.eu/people/detail/matteo-saloni/"   
+
+erica.tomaselli: 
+  name        : "Erica Tomaselli"
+  bio         : "Software Engineer, Dedagroup spa"
+  avatar      : "/assets/images/avatar.jpeg"
+
+alberto.carotti: 
+  name        : "Alberto Carotti"
+  bio         : "Software Engineer, Dedagroup spa"
+  avatar      : "/assets/images/avatar.jpeg"
