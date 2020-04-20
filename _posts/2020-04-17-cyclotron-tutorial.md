@@ -5,12 +5,12 @@ date:   2020-04-16 17:31:34 +0200
 categories: platform
 author: erica.tomaselli
 ---
-Questo tutorial illustra come creare con Cyclotron una dashboard che includerà le seguenti features:
-- fonti dati JSON
-- fonti dati OData
-- elaborazione di fonti dati diverse tramite JavaScript
-- dati geospaziali su mappa interattiva
-- criptazione di dati sensibili nella configurazione.
+This tutorial illustrates how to create on Cyclotron a dashboard with the following features:
+- JSON datasources
+- OData datasources
+- processing and/or combining different datasources with JavaScript
+- geospatial data on an interactive map
+- encryption of sensitive data within the configuration.
 
 I dati utilizzati si riferiscono alla diffusione del virus Covid-19 in Italia e sono resi disponibili dalla Protezione Civile sulla seguente repository: https://github.com/pcm-dpc/COVID-19. Le altre fonti dati utilizzate sono:
 
