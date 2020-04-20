@@ -12,23 +12,21 @@ This tutorial illustrates how to create on Cyclotron a dashboard with the follow
 - geospatial data on an interactive map
 - encryption of sensitive data within the configuration.
 
-I dati utilizzati si riferiscono alla diffusione del virus Covid-19 in Italia e sono resi disponibili dalla Protezione Civile sulla seguente repository: https://github.com/pcm-dpc/COVID-19. Le altre fonti dati utilizzate sono:
+The main dataset used represents the spread of Covid-19 desease across Italy and is made available by the Civil Protection Department on the following repository: https://github.com/pcm-dpc/COVID-19. The other sources used are:
 
-- confini amministrativi delle regioni italiane, forniti da https://gist.github.com/datajournalism-it
-- popolazione residente per regione, rilevata dal censimento ISTAT 2011 ed esposta sul portale DatiOpen.it, http://www.datiopen.it/it/opendata/Censimento_2011_Popolazione_per_regione_e_sesso
+- administrative borders of the Italian regions, provided by https://gist.github.com/datajournalism-it
+- population of each region according to the 2011 census conducted by ISTAT, exposed on the open data portal DatiOpen.it, http://www.datiopen.it/it/opendata/Censimento_2011_Popolazione_per_regione_e_sesso
 
-Nella cartella https://github.com/etomaselli/hello-world/tree/master/tutorial sono presenti alcuni screenshot della dashboard e il suo documento JSON completo.
+### 1. Creating a New Dashboard
 
-### 1. Creazione di una Nuova Dashboard
+On Cyclotron user interface, create a new dashboard named `covid19-analysis-italy`. General dashboard properties, such as the theme or the sidebar, can be configured in the *Details* section of the editor. As each dashboard is saved as a JSON document, such document can be viewed and modified directly by clicking on the *Edit JSON* button.
 
-Dall'interfaccia di Cyclotron, crea una nuova dashboard denominata `analisi-covid19-italia`. Nella sezione *Details* dell'editor si possono configurare le proprietà generali della dashboard, come il tema grafico o la barra laterale. Poiché ogni dashboard viene salvata come documento JSON, cliccando sul pulsante *Edit JSON* si può visualizzare e modificare direttamente tale documento.
-
-Questo è un esempio della configurazione iniziale della dashboard:
+Here is an example of the initial dashboard configuration:
 
 ```
 {
-    "description": "Analisi della diffusione del virus Covid-19 in Italia",
-    "name": "analisi-covid19-italia",
+    "description": "Analysis of Covid-19 spreading across Italy",
+    "name": "covid19-analysis-italy",
     "pages": [],
     "showDashboardControls": false,
     "sidebar": {
@@ -38,35 +36,35 @@ Questo è un esempio della configurazione iniziale della dashboard:
 }
 ```
 
-La dashboard di questo tutorial sarà composta da due pagine: la prima mostrerà la mappa dell'Italia e alcuni dati giornalieri generali, a livello nazionale oppure filtrati per regione tramite la selezione dalla mappa; la seconda permetterà un'analisi più dettagliata. In entrambe le pagine, uno slider temporale permetterà di selezionare il giorno da analizzare.
+This dashboard will include two pages: the first one will display the map of Italy and some general daily data, either at national level or filtered by region via a selection on the map; the second one will allow for a deeper analysis. On both pages, selecting which day to analyse will be possible via a time slider.
 
-### 2. Intestazione
+### 2. Header
 
-Nella sezione *Pages* dell'editor, crea due pagine tramite il pulsante *Add Page* e apri la prima. Le proprietà principali delle pagine sono il numero di righe e il numero di colonne in cui verranno suddivise per formare una griglia in cui posizionare i widget.
+In the *Pages* section of the editor, create two pages with the *Add Page* button and click on the first one. The main properties of a page are the number of rows and the number of columns in which it will be partitioned in order to create a grid where to place the widgets.
 
-Alla prima pagina assegna le seguenti proprietà:
+Assign the following properties to the first page:
 
-- Name: `analisi-generale`
+- Name: `general-analysis`
 - Grid Columns: `4`
 - Grid Rows: `5`
 
-Per aggiungere alla dashboard un'intestazione e i pulsanti di navigazione tra le pagine, crea un nuovo widget tramite il pulsante *Add Widget*, assegnagli il tipo `Header` e le seguenti proprietà:
+In order to give the dashboard a header and some buttons to navigate between the pages, click on the *Add Widget* button to create a new widget on this page, assign it the type `Header` and the following properties:
 
-- Title: `Diffusione del Virus Covid-19 in Italia`
+- Title: `Covid-19 Spreading across Italy`
 - Show Title: `true`
 - Show Parameters: `false`
 - Grid Rows: `1`
 - Grid Columns: `4`
 
-Per aggiungere i pulsanti di navigazione occorre creare un apposito script HTML nel riquadro della proprietà *HTML Content*; lo script verrà compilato e aggiunto sotto il titolo del widget. Dato che l'installazione di Cyclotron include Bootstrap 3, si può usare per dare uno stile agli elementi HTML senza bisogno di importarlo.
+Adding the navigation buttons requires creating an HTML script in the text area of the property *HTML Content*; the script will be compiled and the result will be displayed below the widget title. Cyclotron includes by default Bootstrap 3, which can be used to style HTML elements without importing the library.
 
 ```
 <div class="button-group" align="center">
-    <button class="btn btn-default" id="gen">Analisi Generale</button>
-    <button class="btn btn-default" id="det">dettaglio</button>
+    <button class="btn btn-default" id="gen">General Analysis</button>
+    <button class="btn btn-default" id="det">Details</button>
 </div>
 <script>
-    // La funzione goToPage(pageNum) permette di navigare alla pagina specificata
+    // Built-in function goToPage(pageNum) is used to navigate to the specified page
     $('#gen').on('click', function () {
         Cyclotron.goToPage(1);
     });
@@ -76,14 +74,14 @@ Per aggiungere i pulsanti di navigazione occorre creare un apposito script HTML 
 </script>
 ```
 
-Dopo aver salvato e cliccato sul pulsante *Preview*, potrai visualizzare la dashboard con il widget appena creato.
+After saving and clicking on the *Preview* button, you can visualize the dashboard with the newly created widget.
 
-### 3. Slider Temporale
+### 3. Time Slider
 
-Crea nella stessa pagina un altro widget, assegnagli il tipo `Slider` e configuralo con le seguenti proprietà, per specificare l'intervallo di tempo e la scala di valori da visualizzare accanto allo slider:
+Create another widget in the same page, assign it the type `Slider` and configure it as follows to set the time interval and the pip scale that will appear next to the slider:
 
 - Minimum date-time: `2020-02-24`
-- Maximum date-time: `#{dataDiOggi}`
+- Maximum date-time: `#{dateOfToday}`
 - Date-time Format: `YYYY-MM-DD`
 - Step: `1`
 - Pips.Mode: `count`
@@ -92,53 +90,53 @@ Crea nella stessa pagina un altro widget, assegnagli il tipo `Slider` e configur
 - Grid Rows: `4`
 - Grid Columns: `1`
 - Orientation: `vertical`
-- Direction: `rtl` (right-to-left o da sotto a sopra)
+- Direction: `rtl` (right-to-left or bottom-to-top)
 - Tooltips: `true`
-- Initial Handle Position: `#{dataSelezionata}`
+- Initial Handle Position: `#{selectedDate}`
 
-La stringa `#{dataDiOggi}` è un placeholder e indica che il valore da assegnare, per esempio, alla proprietà *Maximum date-time* corrisponde a quello del parametro **dataDiOggi**, che creerai tra poco. Cerca la proprietà *Subscription To Parameters*, clicca sul pulsante *Add Subscription to Parameters* e inserisci il nome del parametro, `dataDiOggi`. Quando il widget verrà caricato e ad ogni eventuale aggiornamento del parametro, il placeholder verrà sostituito con il valore attuale di **dataDiOggi**.
+The string `#{dateOfToday}` is a placeholder; it indicates that the property *Maximum date-time* must be assigned the value held by the parameter **dateOfToday**, which you are about to create. The same applies to the property *Initial Handle Position* and the parameter **selectedDate**. Find the property *Subscription To Parameters*, click on *Add Subscription to Parameters* and enter the value `dateOfToday`. When the widget will be loaded and whenever this parameter will be updated, the placeholder will be replaced with the current value of **dateOfToday**. Subscription to **selectedDate** is not necessary, as *Initial Handle Position* is used only at widget loading.
 
-Nella sezione *Parameters* dell'editor della dashboard, clicca il pulsante *Add Parameter* e assegna al nuovo parametro le seguenti proprietà:
+In the *Parameters* section of the dashboard editor, click on *Add Parameter* and assign the newly created parameter the following properties:
 
-- Name: `dataDiOggi`
+- Name: `dateOfToday`
 - Default Value: `${moment().format('YYYY-MM-DD')}`
 - Show in URL: `false`
 
-Il valore di default sarà la data di oggi, nello stesso formato utilizzato dallo slider.
+Its default value will be today's date, in the same format used by the slider.
 
-Crea un altro parametro con le seguenti proprietà:
+Create another parameter with the following properties:
 
-- Name: `dataSelezionata`
+- Name: `selectedDate`
 - Default Value: `${moment().format('YYYY-MM-DD')}`
 - Show in URL: `false`
 
-Il parametro **dataSelezionata** conterrà la data selezionata tramite lo slider e verrà utilizzato dagli altri componenti della dashboard per filtrare i dati. Inizialmente avrà come valore la data di oggi, ma si aggiornerà ogni volta che verrà selezionata una nuova data tramite lo slider.
+**selectedDate** will hold the date selected via the slider and will be used by the other dashboard components to filter the data. Its initial value will be today's date, but it will update whenever a new date is selected.
 
-Crea anche un ultimo parametro, configurato come segue, che servirà per la selezione di una regione in mappa:
+Create yet another parameter, which will hold the region selected on the map:
 
-- Name: `regioneSelezionata`
+- Name: `selectedRegion`
 - Show in URL: `false`
 
-Per configurare la gestione della selezione di una data, torna sulla sezione dell'editor dedicata allo slider, cerca la proprietà *Specific Events*, clicca sul pulsante *Add param-event* e popola i seguenti campi:
+Finally go back to the slider configuration, find the property *Specific Events*, click on *Add param-event* and fill the following fields:
 
-- Parameter Name: `dataSelezionata`
+- Parameter Name: `selectedDate`
 - Event: `dateTimeChange`
 
-In questo modo, ad ogni evento "cambio data" il parametro cambierà valore. Puoi cliccare su *Preview* per visualizzare lo stato della dashboard.
+Now on every "date change" event the parameter will be assigned the new value. You can click on *Preview* to visualize the dashboard state.
 
-Adesso il documento JSON completo del widget slider dovrebbe essere questo:
+The complete JSON document of the slider widget should match the following:
 
 ```
 {
     "direction": "rtl",
     "gridHeight": 4,
     "gridWidth": 1,
-    "handlePosition": "#{dataSelezionata}",
-    "maxValue": "#{dataDiOggi}",
+    "handlePosition": "#{selectedDate}",
+    "maxValue": "#{dateOfToday}",
     "minValue": "2020-02-24",
     "momentFormat": "YYYY-MM-DD",
     "orientation": "vertical",
-    "parameterSubscription": ["dataDiOggi"],
+    "parameterSubscription": ["dateOfToday"],
     "pips": {
         "mode": "count",
         "stepped": true,
@@ -147,7 +145,7 @@ Adesso il documento JSON completo del widget slider dovrebbe essere questo:
     "player": {},
     "specificEvents": [{
         "event": "dateTimeChange",
-        "paramName": "dataSelezionata"
+        "paramName": "selectedDate"
     }],
     "step": 1,
     "tooltips": true,
@@ -155,36 +153,36 @@ Adesso il documento JSON completo del widget slider dovrebbe essere questo:
 }
 ```
 
-### 4. Contatori
+### 4. Counters
 
-Il file JSON https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json contiene i dati sul numero di contagi, ricoveri, decessi, tamponi registrati giorno per giorno a livello nazionale, mentre il file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json contiene i medesimi dati per ciascuna regione. Questi dati possono essere analizzati sulla dashboard tramite la configurazione di alcune datasource, che li recupereranno e rielaboreranno per la visualizzazione in un widget.
+The JSON file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json contains data about the number of cases, hospitalizations, deaths, tests registered day by day at national level, while the file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json contains analogous data at regional level. Such data can be analysed on the dashboard by configuring some datasources that will retrieve and prepare them for their visualization in some widgets.
 
-Nella sezione *Data Sources* dell'editor, clicca sul pulsante *Add Data source* per creare una nuova datasource di tipo `JSON`, che può prendere i dati sia da un servizio web sia da un file .json. Assegnale le seguenti proprietà per richiedere i dati nazionali:
+In the *Data Sources* section of the editor, click on *Add Data Source* to create a new datasource of type `JSON`, which can retrieve data from both a web service and a .json file. Assign it the following properties to get national data:
 
-- Name: `dati-nazionali`
+- Name: `national-data`
 - URL: `https://github.com/pcm-dpc/COVID-19/raw/master/dati-json/dpc-covid19-ita-andamento-nazionale.json`
 - Preload: `true`
 - Deferred: `true`
 
-Crea una seconda datasource di tipo `JSON` per richiedere i dati regionali:
+Create a second datasource of type `JSON` to get regional data:
 
-- Name: `dati-regionali`
+- Name: `regional-data`
 - URL: `https://github.com/pcm-dpc/COVID-19/raw/master/dati-json/dpc-covid19-ita-regioni.json`
 - Preload: `true`
 - Deferred: `true`
 
-Infine crea una terza datasource, di tipo `JavaScript`, con le seguenti proprietà:
+Lastly create a third one of type `JavaScript` with the following properties:
 
-- Name: `contatori-generali`
-- Subscription To Parameters: `dataSelezionata`, `regioneSelezionata`
+- Name: `general-counters`
+- Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
 ```
 e = function(promise){
     var result = [];
-    var day = Cyclotron.parameters.dataSelezionata;
-    var region = Cyclotron.parameters.regioneSelezionata;
-    var datasource = (region && region.Regione ? 'dati-regionali' : 'dati-nazionali');
+    var day = Cyclotron.parameters.selectedDate;
+    var region = Cyclotron.parameters.selectedRegion;
+    var datasource = (region && region.Regione ? 'regional-data' : 'national-data');
     
     Cyclotron.dataSources[datasource].execute().then(function(dataset){
         var dayData = _.find(dataset['0'].data, function(d){
@@ -204,11 +202,12 @@ e = function(promise){
 }
 ```
 
-La datasource si aggiornerà ogni volta che i parametri **dataSelezionata** o **regioneSelezionata** avranno un nuovo valore, il quale verrà usato per filtrare tra i dati solo quelli relativi alla data e/o alla regione selezionata. La proprietà *Processor* è una funzione JavaScript che verifica quali filtri sono stati impostati, elabora i dati e li restituisce in maniera sincrona. A seconda che sia o non sia presente una regione selezionata, la funzione esegue la datasource per i dati nazionali o regionali, cerca nel dataset (che in entrambi i casi è un'array di giorni con i relativi dati) il sottoinsieme corrispondente alla data e/o regione selezionata e preparare i dati per il widget che li riceverà.
+The datasource will refresh every time the parameters **selectedDate** or **selectedRegion** take a new value, which will be used to filter only the subset of data that match the selected date and/or region. The property *Processor* is a JavaScript function that checks which filters to apply, processes the data and returns them synchronously. Depending on whether a region has been selected or not, the function executes the datasource for either national or regional data (which in both cases is an array of days), finds the subset of data matching the filters and prepares the data for the widget that will receive them.
+
 
 Ora che il recupero dei dati è stato predisposto, torna alla pagina `analisi-generale` e crea quattro nuovi widget di tipo `Number`, ognuno con le seguenti proprietà (puoi copiare il documento JSON del primo nell'editor JSON degli altri):
 
-- Data Source: `contatori-generali`
+- Data Source: `general-counters`
 - Grid Rows: `1`
 - Grid Columns: `1`
 - No Data Message: `Dati non disponibili per la data scelta`
@@ -304,7 +303,7 @@ e = function(feature) {
         })
     };
     
-    if(Cyclotron.parameters.regioneSelezionata && Cyclotron.parameters.regioneSelezionata.Regione == feature.getProperties().Regione){
+    if(Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione == feature.getProperties().Regione){
         return styles.sel;
     } else {
         return styles.desel;
@@ -314,7 +313,7 @@ e = function(feature) {
 
 Individua tra le proprietà della mappa quella denominata *Specific Events*, clicca sul pulsante *Add param-event* e configura l'evento come segue:
 
-- Parameter Name: `regioneSelezionata`
+- Parameter Name: `selectedRegion`
 - Event: `selectVectorFeature`
 
 Infine, nella sezione *Scripts*, crea un nuovo script con le seguenti proprietà:
@@ -369,15 +368,15 @@ Oltre a questi, la seconda pagina conterrà altri quattro widget di dettaglio su
 I dati per la tabella fanno parte del dataset che hai già utilizzato per i contatori della prima pagina e, allo stesso modo, vanno rielaborati in una nuova datasource di tipo `JavaScript`. Creane una con le seguenti proprietà:
 
 - Name: `dati-sanitari`
-- Subscription To Parameters: `dataSelezionata`, `regioneSelezionata`
+- Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
 ```
 e = function(promise){
     var result = [];
-    var day = Cyclotron.parameters.dataSelezionata;
-    var region = Cyclotron.parameters.regioneSelezionata;
-    var datasource = (region && region.Regione ? 'dati-regionali' : 'dati-nazionali');
+    var day = Cyclotron.parameters.selectedDate;
+    var region = Cyclotron.parameters.selectedRegion;
+    var datasource = (region && region.Regione ? 'regional-data' : 'national-data');
     
     Cyclotron.dataSources[datasource].execute().then(function(dataset){
         var dayData = _.find(dataset['0'].data, function(d){
@@ -412,12 +411,12 @@ e = function(promise){
 }
 ```
 
-La funzione è molto simile a quella della datasource `contatori-generali`, ma l'output è adattato a quello richiesto dalla tabella, ovvero una lista di righe aventi ognuna due colonne, *dato* e *valore*.
+La funzione è molto simile a quella della datasource `general-counters`, ma l'output è adattato a quello richiesto dalla tabella, ovvero una lista di righe aventi ognuna due colonne, *dato* e *valore*.
 
 Crea un nuovo widget di tipo `Table` nella pagina `dettaglio` e configuralo come segue:
 
 - Name: `table`
-- Title: `Dati Sanitari - ${Cyclotron.parameters.regioneSelezionata && Cyclotron.parameters.regioneSelezionata.Regione ? Cyclotron.parameters.regioneSelezionata.Regione : 'Italia'}`
+- Title: `Dati Sanitari - ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? Cyclotron.parameters.selectedRegion.Regione : 'Italia'}`
 - Data Source: `dati-sanitari`
 - Omit Headers: `true`
 - Grid Rows: `2`
@@ -441,15 +440,15 @@ Crea una datasource `JSON` con le seguenti proprietà:
 E un'altra di tipo `JavaScript`, simile a quelle create in precedenza, che elaborerà i dati provinciali per la regione selezionata oppure regionali per tutta la nazione:
 
 - Name: `suddivisione-casi`
-- Subscription To Parameters: `dataSelezionata`, `regioneSelezionata`
+- Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
 ```
 e = function(promise){
     var result = [];
-    var day = Cyclotron.parameters.dataSelezionata;
-    var region = Cyclotron.parameters.regioneSelezionata;
-    var datasource = (region && region.Regione ? 'dati-provinciali' : 'dati-regionali');
+    var day = Cyclotron.parameters.selectedDate;
+    var region = Cyclotron.parameters.selectedRegion;
+    var datasource = (region && region.Regione ? 'dati-provinciali' : 'regional-data');
     
     Cyclotron.dataSources[datasource].execute().then(function(dataset){
         var dayData = _.filter(dataset['0'].data, function(d){
@@ -475,7 +474,7 @@ e = function(promise){
 Il grafico avrà sull'asse orizzontale i nomi delle province o delle regioni. Nella pagina `dettaglio` crea un widget di tipo `Google Charts` con la seguente configurazione:
 
 - Name: `barchart`
-- Title: `Casi Totali per ${Cyclotron.parameters.regioneSelezionata && Cyclotron.parameters.regioneSelezionata.Regione ? 'Provincia' : 'Regione'}`
+- Title: `Casi Totali per ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? 'Provincia' : 'Regione'}`
 - Data Source: `suddivisione-casi`
 - Chart Type: `ColumnChart`
 - Grid Rows: `2`
@@ -529,16 +528,16 @@ La funzione in *Post-Processor* può elaborare il risultato della chiamata al se
 A questo punto, crea una datasource di tipo `JavaScript` per combinare i dati ISTAT con quelli sui contagi:
 
 - Name: `casi-su-popolazione`
-- Subscription To Parameters: `dataSelezionata`, `regioneSelezionata`
+- Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
 ```
 e = function(promise){
     var result = [];
-    var day = Cyclotron.parameters.dataSelezionata;
-    var region = Cyclotron.parameters.regioneSelezionata;
+    var day = Cyclotron.parameters.selectedDate;
+    var region = Cyclotron.parameters.selectedRegion;
     
-    Cyclotron.dataSources['dati-regionali'].execute().then(function(dataset1){
+    Cyclotron.dataSources['regional-data'].execute().then(function(dataset1){
         var dayData = _.filter(dataset1['0'].data, function(d){
             return moment(d.data, 'YYYY-MM-DDTHH:mm:ss').isSame(moment(day, 'YYYY-MM-DD'), 'day');
         });
@@ -591,15 +590,15 @@ L'ultimo grafico rappresenterà l'andamento dei casi positivi rilevati giorno pe
 Crea una nuova datasource di tipo `JavaScript` con le seguenti proprietà:
 
 - Name: `andamento-positivi`
-- Subscription To Parameters: `dataSelezionata`, `regioneSelezionata`
+- Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
 ```
 e = function(promise){
     var result = [];
-    var day = Cyclotron.parameters.dataSelezionata;
-    var region = Cyclotron.parameters.regioneSelezionata;
-    var datasource = (region && region.Regione ? 'dati-regionali' : 'dati-nazionali');
+    var day = Cyclotron.parameters.selectedDate;
+    var region = Cyclotron.parameters.selectedRegion;
+    var datasource = (region && region.Regione ? 'regional-data' : 'national-data');
     
     Cyclotron.dataSources[datasource].execute().then(function(dataset){
         var dayData = _.filter(dataset['0'].data, function(d){
@@ -625,7 +624,7 @@ e = function(promise){
 Infine nella pagina `dettaglio` crea un widget di tipo `Google Charts` con la seguente configurazione:
 
 - Name: `positivi`
-- Title: `Andamento Nuovi Positivi - ${Cyclotron.parameters.regioneSelezionata && Cyclotron.parameters.regioneSelezionata.Regione ? Cyclotron.parameters.regioneSelezionata.Regione : 'Italia'}`
+- Title: `Andamento Nuovi Positivi - ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? Cyclotron.parameters.selectedRegion.Regione : 'Italia'}`
 - Data Source: `andamento-positivi`
 - Chart Type: `LineChart`
 - Grid Rows: `2`
