@@ -329,7 +329,11 @@ Cyclotron.featureSelectStyleFunction = function(feature){
 }
 ```
 
-This function will be used to style selected features only. Now the first page of the dashboard is complete.
+This function will be used to style selected features only.
+
+Now the first page of the dashboard is complete. Below are some screenshots of the result:
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial/pagina-analisi-generale-nazione.png)
 
 ### 6. Linked Widget
 
