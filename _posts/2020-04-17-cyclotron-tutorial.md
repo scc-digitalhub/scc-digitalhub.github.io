@@ -331,9 +331,11 @@ Cyclotron.featureSelectStyleFunction = function(feature){
 
 This function will be used to style selected features only.
 
-Now the first page of the dashboard is complete. Below are some screenshots of the result:
+Now the first page of the dashboard is complete. Below are some screenshots of the result, with and without a selected region:
 
 ![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial/pagina-analisi-generale-nazione.png)
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial/pagina-analisi-generale-regione.png)
 
 ### 6. Linked Widget
 
@@ -648,6 +650,12 @@ Lastly create a `Google Charts` widget on the `details` page and configure it as
     }
 }
 ```
+
+You completed also the second page of the dashboard. Here is the result you should visualise:
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial/pagina-dettaglio-nazione.png)
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial/pagina-dettaglio-regione.png)
 
 ### 11. Encryption
 
