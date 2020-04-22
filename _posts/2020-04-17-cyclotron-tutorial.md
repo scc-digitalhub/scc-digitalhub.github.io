@@ -12,7 +12,7 @@ This tutorial illustrates how to create on Cyclotron a dashboard with the follow
 - geospatial data on an interactive map
 - encryption of sensitive data within the configuration.
 
-The main dataset used represents the spread of Covid-19 desease across Italy and is made available by the Civil Protection Department on the following repository: https://github.com/pcm-dpc/COVID-19. The other sources used are:
+The main dataset used represents the spread of Covid-19 desease across Italy and is made available by the Civil Protection Department on the following repository: [https://github.com/pcm-dpc/COVID-19](https://github.com/pcm-dpc/COVID-19). The other sources used are:
 
 - administrative borders of the Italian regions, provided by https://gist.github.com/datajournalism-it
 - population of each region according to the 2011 census conducted by ISTAT, exposed on the open data portal DatiOpen.it, http://www.datiopen.it/it/opendata/Censimento_2011_Popolazione_per_regione_e_sesso
