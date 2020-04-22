@@ -500,11 +500,11 @@ These are some of the options available to customize the chart. The complete lis
 
 ### 9. Table of Comparison with the Population and OData Datasource
 
-Anche per il prossimo widget servirà una nuova datasource, questa volta di tipo `OData`, poiché il portale DatiOpen.it mette a disposizione tramite il proprio servizio OData i dati sulla popolazione residente raccolti da ISTAT durante il censimento del 2011.
+The next widget will need a new datasource of type `OData`, as the portal DatiOpen.it exposes the data collected during the ISTAT 2011 census via its own OData service.
 
-Crea una datasource `OData` con le seguenti proprietà:
+Create an `OData` datasource with the following properties:
 
-- Name: `censimento-2011`
+- Name: `census-2011`
 - URL: `http://www.datiopen.it//ODataProxy/MdData('4ca2b914-2eb0-4097-a985-5dddca9acf17@datiopen')/DataRows`
 - Response Adapter: `Raw`
 - Preload: `true`
@@ -516,17 +516,17 @@ e = function(dataset){
     var data = _.map(dataset.d.results, function(d){
         var regionKey = _.find(_.keys(d), (key) => { return key.includes('regione'); });
         var totKey = _.find(_.keys(d), (key) => { return key.includes('totale'); });
-        return {regione: d[regionKey], residenti: parseInt(d[totKey], 10)};
+        return {region: d[regionKey], population: parseInt(d[totKey], 10)};
     });
     return data;
 }
 ```
 
-La funzione in *Post-Processor* può elaborare il risultato della chiamata al servizio prima di restituirlo. In questo caso, il dataset viene ripulito dai metadati e dai dati sui residenti divisi per genere, non necessari per questa dashboard.
+The *Post-Processor* function can re-elaborate the result of the call to the service before returning it. In this case, the dataset is trimmed down by removing metadata and data about the population by gender, which are unnecessary for this dashboard.
 
-A questo punto, crea una datasource di tipo `JavaScript` per combinare i dati ISTAT con quelli sui contagi:
+At this point, create another datasource of type `JavaScript` to combine ISTAT data with Covid-19 cases:
 
-- Name: `casi-su-popolazione`
+- Name: `cases-per-million-people`
 - Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
@@ -542,18 +542,18 @@ e = function(promise){
         });
         
         if(dayData.length > 0){
-            Cyclotron.dataSources['censimento-2011'].execute().then(function(dataset2){
-                _.each(dayData, function(casiRegionali){
-                    var censimento = _.find(dataset2['0'].data, function(p){
-                        return casiRegionali.denominazione_regione.replace('-', ' ').includes(p.regione.split('/')[0].replace('-', ' ')); //gestisci Bolzano ("Bolzano/Bozen") e Friuli ("Friuli-Venezia Giulia")
+            Cyclotron.dataSources['census-2011'].execute().then(function(dataset2){
+                _.each(dayData, function(regionalCases){
+                    var census = _.find(dataset2['0'].data, function(p){
+                        return regionalCases.denominazione_regione.replace('-', ' ').includes(p.region.split('/')[0].replace('-', ' ')); //handle Bolzano ("Bolzano/Bozen") and Friuli ("Friuli-Venezia Giulia")
                     });
                     
-                    var casiPerMilione = casiRegionali.totale_casi / (censimento.residenti/1000000);
+                    var casesPerMillion = regionalCases.totale_casi / (census.population/1000000);
                     
                     result.push({
-                        Regione: casiRegionali.denominazione_regione,
-                        Casi: Math.round(casiPerMilione),
-                        selezionata: (region && region.Regione && casiRegionali.denominazione_regione.includes(region.Regione) ? true : false)
+                        Region: regionalCases.denominazione_regione,
+                        Cases: Math.round(casesPerMillion),
+                        selected: (region && region.Regione && regionalCases.denominazione_regione.includes(region.Regione) ? true : false)
                     });
                 });
                 
@@ -566,29 +566,29 @@ e = function(promise){
 }
 ```
 
-Il processore recupera i dati sui contagi e, per ogni regione, identifica il numero di residenti nel dataset con il censimento e calcola il numero di contagi registrati per milione di abitanti. La colonna `selezionata` servirà per colorare la riga corrispondente alla regione selezionata, se presente.
+The processor retrieves the data about the contagion, fetches the population of each region from the census dataset and calculates the number of cases per million people. The column `selected` will be used to highlight the row corresponding to the selected region, if there is one.
 
-Adesso crea un nuovo widget di tipo `Table` sulla pagina `dettaglio` e configuralo come segue:
+Now create a new widget of type `Table` on the `details` page and configure it as follows:
 
-- Title: `Casi/milione di Abitanti`
-- Data Source: `casi-su-popolazione`
+- Title: `Cases/Million People`
+- Data Source: `cases-per-million-people`
 - Omit Headers: `true`
-- Sort By: `-Casi`
+- Sort By: `-Cases`
 - Grid Rows: `2`
 - Grid Columns: `1`
 
-Sotto la proprietà *Columns*, aggiungi due colonne e popola il campo *Name* con `Regione` per la prima, `Casi` per la seconda. Sotto la proprietà *Rules*, crea una regola con cui colorare di giallo la riga corrispondente alla regione selezionata, configurandola come segue:
+Under the *Columns* property, add two columns and fill the *Name* field with `Region` for the first column, with `Cases` for the second one. Under the *Rules* property, add the following rule, which will highlight in yellow the row matching the selected region:
 
-- Rule: `#{selezionata}`
+- Rule: `#{selected}`
 - Background Color (CSS): `yellow`
 
-### 10. Grafico a Linee
+### 10. Line Chart
 
-L'ultimo grafico rappresenterà l'andamento dei casi positivi rilevati giorno per giorno fino alla data scelta, a livello regionale nel caso ci sia una regione selezionata, altrimenti nazionale.
+The last chart will display the evolution of positive cases measured day by day up to the selected date, either at regional level (if a region is selected) or at national level.
 
-Crea una nuova datasource di tipo `JavaScript` con le seguenti proprietà:
+Create a new datasource of type `JavaScript` with the following properties:
 
-- Name: `andamento-positivi`
+- Name: `evolution-of-positive-cases`
 - Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
@@ -608,10 +608,10 @@ e = function(promise){
             }
         });
         
-        _.each(dayData, function(giorno){
+        _.each(dayData, function(g){
             result.push({
-                'Giorno': moment(giorno.data, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM'),
-                'Nuovi Positivi': giorno.nuovi_positivi
+                'Day': moment(g.data, 'YYYY-MM-DDTHH:mm:ss').format('DD/MM'),
+                'New Positive Cases': g.nuovi_positivi
             });
         });
         
@@ -620,11 +620,11 @@ e = function(promise){
 }
 ```
 
-Infine nella pagina `dettaglio` crea un widget di tipo `Google Charts` con la seguente configurazione:
+Lastly create a `Google Charts` widget on the `details` page and configure it as follows:
 
-- Name: `positivi`
-- Title: `Andamento Nuovi Positivi - ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? Cyclotron.parameters.selectedRegion.Regione : 'Italia'}`
-- Data Source: `andamento-positivi`
+- Name: `positive-cases`
+- Title: `Evolution of Positive Cases - ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? Cyclotron.parameters.selectedRegion.Regione : 'Italy'}`
+- Data Source: `evolution-of-positive-cases`
 - Chart Type: `LineChart`
 - Grid Rows: `2`
 - Grid Columns: `2`
@@ -647,21 +647,21 @@ Infine nella pagina `dettaglio` crea un widget di tipo `Google Charts` con la se
 
 ### 11. Encryption
 
-Nel caso in cui la configurazione di una datasource contenga dati sensibili, come per esempio credenziali, Cyclotron consente di criptare le stringhe che necessitano di protezione, le quali verranno decriptate al momento dell'esecuzione della datasource da parte del servizio di proxy.
+In case the configuration of some datasource contains sensitive data, e.g. credentials, Cyclotron provides a service for encrypting strings that require protection, which will be decrypted only when the datasource is executed inside the proxy service.
 
-Nell'editor di ogni dashboard, dal menu a sinistra si può accedere al servizio di encryption: cliccando su *Encrypt...* si aprirà una finestra da cui sarà possibile inserire una stringa e copiare la stringa criptata e già racchiusa nella notazione `!{}`, che indicherà al servizio di proxy la presenza di una stringa da decriptare prima di eseguire la datasource.
+In the editor of each dashboard, you can access the encryption service from the menu on the left: clicking on *Encrypt...* will open a popup where you can enter a string and copy the encrypted result, already wrapped in the notation `!{}`, which will signal to the proxy service the presence of a string to decrypt before executing the datasource.
 
-Le fonti di dati utilizzate per questo tutorial non sono protette, ma supponiamo che richiedano una chiave (es. una API key) trasmessa come parametro nella richiesta:
+The sources used in this tutorial are not protected, but let us suppose they require a key (e.g. an API key) to be sent as a query parameter in the request:
 
 *https://github.com/pcm-dpc/COVID-19/raw/master/dati-json/dpc-covid19-ita-regioni.json?secretkey=mykey123456789*
 
-La chiave può essere criptata nella configurazione della datasource, in modo che non sia mai visibile in chiaro nel browser. Si può criptare il singolo parametro come coppia chiave-valore nella proprietà *Query Parameters*:
+The key can be encrypted inside the datasource configuration, so that it is never visible in cleartext inside the browser. You can either encrypt just the query parameter as a key-value pair inside the *Query Parameters* property:
 
-- chiave: `secretkey`
-- valore: `!{lByxOaWRKKOfVGKkCFS09w==}`
+- key: `secretkey`
+- value: `!{lByxOaWRKKOfVGKkCFS09w==}`
 
-oppure criptare direttamente in parte o tutto l'URL:
+or encrypt partially or completely the URL:
 
 - URL: `https://github.com/pcm-dpc/COVID-19/raw/master/dati-json/dpc-covid19-ita-regioni.json?secretkey=!{lByxOaWRKKOfVGKkCFS09w==}`
 
-Allo stesso modo possono essere criptate altre parti della configurazione delle datasource, come le credenziali AWS (nella proprietà *AWS Credentials*) o OAuth2.0 (nella proprietà *OAuth2.0 Client Credentials*).
+Similarly you can encrypt other parts of the datasource configuration, such as AWS credentials (inside the *AWS Credentials* property) and OAuth2.0 credentials (inside the *OAuth2.0 Client Credentials* property).
