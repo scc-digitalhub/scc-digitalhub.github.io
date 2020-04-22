@@ -14,8 +14,8 @@ This tutorial illustrates how to create on Cyclotron a dashboard with the follow
 
 The main dataset used represents the spread of Covid-19 desease across Italy and is made available by the Civil Protection Department on the following repository: [https://github.com/pcm-dpc/COVID-19](https://github.com/pcm-dpc/COVID-19). The other sources used are:
 
-- administrative borders of the Italian regions, provided by https://gist.github.com/datajournalism-it
-- population of each region according to the 2011 census conducted by ISTAT, exposed on the open data portal DatiOpen.it, http://www.datiopen.it/it/opendata/Censimento_2011_Popolazione_per_regione_e_sesso
+- administrative borders of the Italian regions, provided by [https://gist.github.com/datajournalism-it](https://gist.github.com/datajournalism-it)
+- population of each region according to the 2011 census conducted by ISTAT, exposed on the open data portal DatiOpen.it, [http://www.datiopen.it/it/opendata/Censimento_2011_Popolazione_per_regione_e_sesso](http://www.datiopen.it/it/opendata/Censimento_2011_Popolazione_per_regione_e_sesso)
 
 ### 1. Creating a New Dashboard
 
@@ -155,7 +155,7 @@ The complete JSON document of the slider widget should match the following:
 
 ### 4. Counters
 
-The JSON file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json contains data about the number of cases, hospitalizations, deaths, tests registered day by day at national level, while the file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json contains analogous data at regional level. Such data can be analysed on the dashboard by configuring some datasources that will retrieve and prepare them for their visualization in some widgets.
+The JSON file [https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json) contains data about the number of cases, hospitalizations, deaths, tests registered day by day at national level, while the file [https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json) contains analogous data at regional level. Such data can be analysed on the dashboard by configuring some datasources that will retrieve and prepare them for their visualization in some widgets.
 
 In the *Data Sources* section of the editor, click on *Add Data Source* to create a new datasource of type `JSON`, which can retrieve data from both a web service and a .json file. Assign it the following properties to get national data:
 
@@ -433,7 +433,7 @@ Under the property *Columns*, add two columns and fill the *Name* field by enter
 
 ### 8. Bar Chart
 
-In order to create the bar chart, a new `JSON` datasource is required to retrieve data at provincial level from the file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-province.json.
+In order to create the bar chart, a new `JSON` datasource is required to retrieve data at provincial level from the file [https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-province.json](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-province.json).
 
 Create a datasource of type `JSON` with the following properties:
 
