@@ -277,7 +277,7 @@ Configure also the second layer:
 }
 ```
 
-At this point, if you save and reopen the dashboard preview, the regional borders will already be visible on the map but not yet clickable. In order to add interactivity, open the vector layer configuration and give the *Style* property the following value, i.e., a function that will style the features on the map:
+At this point, if you save and reopen the dashboard preview, the regional borders will already be visible on the map but not yet clickable. In order to add interactivity, open the vector layer configuration and give the *Style function* property the following value, i.e., a function that will style the features on the map:
 
 ```
 e = function(feature) {
