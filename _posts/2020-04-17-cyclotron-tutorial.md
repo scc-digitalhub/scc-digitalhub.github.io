@@ -204,46 +204,45 @@ e = function(promise){
 
 The datasource will refresh every time the parameters **selectedDate** or **selectedRegion** take a new value, which will be used to filter only the subset of data that match the selected date and/or region. The property *Processor* is a JavaScript function that checks which filters to apply, processes the data and returns them synchronously. Depending on whether a region has been selected or not, the function executes the datasource for either national or regional data (which in both cases is an array of days), finds the subset of data matching the filters and prepares the data for the widget that will receive them.
 
-
-Ora che il recupero dei dati è stato predisposto, torna alla pagina `analisi-generale` e crea quattro nuovi widget di tipo `Number`, ognuno con le seguenti proprietà (puoi copiare il documento JSON del primo nell'editor JSON degli altri):
+Now that data retrieval has been set up, go back to the page `general-analysis` and create four new widgets of type `Number`, each one with the following properties (you can copy the JSON document of the first one and paste it into the JSON editor of the other ones):
 
 - Data Source: `general-counters`
 - Grid Rows: `1`
 - Grid Columns: `1`
-- No Data Message: `Dati non disponibili per la data scelta`
+- No Data Message: `Data not available for the selected date and/or region`
 
-Adesso tutti e quattro i widget leggeranno la stessa datasource, ma ognuno esporrà uno dei dati. La proprietà *Numbers* può essere usata per mostrare una serie di valori statici oppure provenienti dalla datasource (tramite la sintassi `#{campo_valore}`). Nel primo widget di tipo `Number`, cliccando sul pulsante *Add number*, crea un numero con le seguenti proprietà:
+The four widgets will use the same datasource, but each one will expose one information. The property *Numbers* can be used to display a series of values, either static or provided by the datasource (by means of the syntax `#{field_name}`). For the first `Number` widget, click on *Add Number* inside the property *Numbers* and create a number with the following properties:
 
 - Number: `#{totale_casi}`
-- Prefix: `Totale Casi`
+- Prefix: `Total Cases`
 
-Fai lo stesso per il secondo widget:
+Do the same for the second widget:
 
 - Number: `#{totale_positivi}`
-- Prefix: `Totale Positivi`
+- Prefix: `Total Positive`
 
-Il terzo:
+The third one:
 
 - Number: `#{dimessi_guariti}`
-- Prefix: `Dimessi Guariti`
+- Prefix: `Recovered`
 
-E infine il quarto:
+And the fourth one:
 
 - Number: `#{deceduti}`
-- Prefix: `Decessi`
+- Prefix: `Deaths`
 
-Se clicchi nuovamente su *Preview* e provi a cambiare la data selezionata con lo slider, vedrai che i quattro contatori si aggiorneranno con i dati relativi al giorno scelto o, nel caso questi non fossero disponibili, con il messaggio impostato. Quando la mappa sarà configurata, i contatori si aggiorneranno anche in risposta alla selezione di una regione.
+If you now click again on *Preview* and use the slider to change the date, you will find that the four counters update with either data related to the selected day, if any, or the provided *No Data Message*. When the map is configured, the counters will also update in response to the selection of a region.
 
-Al momento i quattro widget saranno disposti sulla dashboard da sinistra a destra, nell'ordine in cui sono elencati nella pagina. Nel prossimo passaggio verrà aggiunto l'ultimo widget della pagina e i contatori si incolonneranno per riempire lo spazio sulla griglia.
+At the moment the widgets are placed on the page from left to right, in the order in which they are listed. In the next step, the last widget will be added to the page and the counters will align vertically to fill the space on the grid.
 
-### 5. Dati Geografici e Mappa Interattiva
+### 5. Georaphical Data and Interactive Map
 
-La mappa che stai per creare avrà i seguenti elementi:
+The map you are going to create will have the following components:
 
-- layer OSM: mappa geografica di base
-- layer vettoriale con i confini regionali: ogni regione sarà rappresentata come una feature GeoJSON che, se selezionata con un click, permetterà di procedere con l'analisi dei dati regionali nella seconda pagina della dashboard
+- OSM layer: basic geographic map
+- vector layer with regional borders: each region will be represented as a GeoJSON feature and clicking on it will allow the user to analyse the data related to that region on the second page of the dashboard
 
-Torna alla pagina `analisi-generale`, clicca su *Add Widget* e poi trascina il nuovo widget tra quello di tipo `Slider` e il primo di tipo `Number`, in modo che sia al terzo posto nell'elenco dei widget inclusi nella pagina. Assegna al nuovo widget le seguenti proprietà:
+Go back to the page `general-analysis`, click on *Add Widget* and then drag the newly created widget between the `Slider` widget and the first `Number` widget, so that it becomes third in the widget list of this page. Give it the following properties:
 
 - Widget Type: `OpenLayers Map`
 - Center.X: `13`
@@ -253,7 +252,7 @@ Torna alla pagina `analisi-generale`, clicca su *Add Widget* e poi trascina il n
 - Grid Columns: `2`
 - Controls: `Zoom`
 
-Alla proprietà *Layers*, cliccando su *Add Layer* aggiungi due layers. Al primo, che sarà un layer di base in colori neutrali, assegna le seguenti proprietà:
+Under the *Layers* property, add two layers by clicking on *Add Layer*. Configure the first one as follows to have a base map in neutral colors:
 
 - Type: `tile`
 - Source.Name: `Stamen`
@@ -265,7 +264,7 @@ Alla proprietà *Layers*, cliccando su *Add Layer* aggiungi due layers. Al primo
 }
 ```
 
-Il secondo layer sarà di tipo vettoriale e rappresenterà i confini regionali:
+Configure also the second layer:
 
 - Type: `vector`
 - Source.Name: `Vector`
@@ -278,7 +277,7 @@ Il secondo layer sarà di tipo vettoriale e rappresenterà i confini regionali:
 }
 ```
 
-A questo punto, salvando e aprendo il preview della dashboard, sarà già visibile la mappa con i confini regionali, senza però che le regioni siano selezionabili. Per completare la configurazione, torna al layer vettoriale appena creato e assegna alla proprietà *Style function* il seguente valore, per dare uno stile alle features rappresentate in mappa:
+At this point, if you save and reopen the dashboard preview, the regional borders will already be visible on the map but not yet clickable. In order to add interactivity, open the vector layer configuration and give the *Style* property the following value, i.e., a function that will style the features on the map:
 
 ```
 e = function(feature) {
@@ -311,12 +310,12 @@ e = function(feature) {
 }
 ```
 
-Individua tra le proprietà della mappa quella denominata *Specific Events*, clicca sul pulsante *Add param-event* e configura l'evento come segue:
+Find the widget property *Specific Events*, click on *Add param-event* and configure the event as follows:
 
 - Parameter Name: `selectedRegion`
 - Event: `selectVectorFeature`
 
-Infine, nella sezione *Scripts*, crea un nuovo script con le seguenti proprietà:
+Finally, in the *Scripts* section of the dashboard editor, create a new script with the following properties:
 
 - Single-Load: `true`
 - JavaScript Text: 
@@ -330,44 +329,44 @@ Cyclotron.featureSelectStyleFunction = function(feature){
 }
 ```
 
-La funzione appena definita verrà utilizzata per assegnare uno stile alle features selezionate. Adesso la prima pagina della dashboard è completa.
+This function will be used to style selected features only. Now the first page of the dashboard is complete.
 
 ### 6. Linked Widget
 
-I widget di tipo `Linked Widget` sono sostanzialmente una copia di un altro widget, ovvero l'equivalente del copiare il documento JSON da un widget ad un altro. Permettono di configurare in un unico posto un widget che verrà riutilizzato in più parti della stessa dashboard. In questo caso, due widget configurati nella prima pagina della dashboard saranno riutilizzati nella seconda: l'intestazione e lo slider temporale.
+Widgets with type `Linked Widget` are essentially a copy of another widget, i.e., the equivalent of copying the JSON document of a widget into another. Linked widgets allow to configure only once a widget that will be reused in several parts of the same dashboard. In the scope of this tutorial, two widgets configured in the first page of the dashboard will be reused in the second page: the header and the time slider.
 
-Vai alla sezione dell'editor dedicata alla seconda pagina e configurala come segue:
+Open the editor section of the second page and configure it as follows:
 
-- Name: `dettaglio`
+- Name: `details`
 - Grid Columns: `4`
 - Grid Rows: `5`
 
-Crea due nuovo widget di tipo `Linked Widget`. Configura il primo con le seguenti proprietà:
+Create two widgets of type `Linked Widget`. Give the first one the following properties:
 
-- Linked Widget: `Page 1: Header: Diffusione del Virus Covid-19 in Italia` (identificato nel documento JSON come `0,0`, cioè *<indice_pagina,indice_widget>*)
-- Name: `intestazione`
+- Linked Widget: `Page 1: Header: Covid-19 Spreading across Italy` (identified in the JSON document as `0,0`, i.e. *<page_index,widget_index>*)
+- Name: `header`
 - Grid Rows: `1`
 - Grid Columns: `4`
 
-E il secondo:
+And the second one:
 
-- Linked Widget: `Page 1: Slider` (identificato nel documento JSON come `0,1`)
+- Linked Widget: `Page 1: Slider` (identified in the JSON document as `0,1`)
 - Name: `slider`
 - Grid Rows: `4`
 - Grid Columns: `1`
 
-Oltre a questi, la seconda pagina conterrà altri quattro widget di dettaglio sulla regione (se selezionata) o sulla nazione:
+In addition to these, the second page will include four more widgets with details about the region (if selected) or the nation:
 
-- una tabella con dati relativi al numero di tamponi effettuati, pazienti ricoverati e in isolamento domiciliare
-- un grafico a barre con i casi rilevati per ogni provincia della regione (o per ogni regione d'Italia)
-- una tabella con il numero di casi per milione di abitanti, considerato il numero di abitanti rilevato all'ultimo censimento ISTAT
-- un grafico a linee con i nuovi casi positivi giorno per giorno fino alla data scelta
+- a table with information on the number of tests performed, hospitalised patients and people in home confinement
+- a bar chart with the number of cases for each province of the selected region (or for each Italian region)
+- a table with the number of cases per million people, considering the number of inhabitants measured during the last ISTAT census
+- a line chart with the number of new positive cases day by day up to the selected date
 
-### 7. Tabella dei Dati Sanitari
+### 7. Table on the Health Situation
 
-I dati per la tabella fanno parte del dataset che hai già utilizzato per i contatori della prima pagina e, allo stesso modo, vanno rielaborati in una nuova datasource di tipo `JavaScript`. Creane una con le seguenti proprietà:
+The data for the table are included in the same dataset already used for the counters and, as for the counters, they require some processing in a new datasource of type `JavaScript`. Create it and assign it the following properties:
 
-- Name: `dati-sanitari`
+- Name: `health-situation`
 - Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
@@ -389,20 +388,20 @@ e = function(promise){
         
         if(dayData){
             result = [{
-                dato: 'Ricoverati con sintomi',
-                valore: dayData.ricoverati_con_sintomi
+                information: 'Hospitalised with symptoms',
+                value: dayData.ricoverati_con_sintomi
             },{
-                dato: 'Terapia intensiva',
-                valore: dayData.terapia_intensiva
+                information: 'Intensive care',
+                value: dayData.terapia_intensiva
             },{
-                dato: 'Totale ospedalizzati',
-                valore: dayData.totale_ospedalizzati
+                information: 'Total hospitalised',
+                value: dayData.totale_ospedalizzati
             },{
-                dato: 'Isolamento domiciliare',
-                valore: dayData.isolamento_domiciliare
+                information: 'Home confinement',
+                value: dayData.isolamento_domiciliare
             },{
-                dato: 'Tamponi',
-                valore: dayData.tamponi
+                information: 'Tests performed',
+                value: dayData.tamponi
             }];
         }
         
@@ -411,35 +410,35 @@ e = function(promise){
 }
 ```
 
-La funzione è molto simile a quella della datasource `general-counters`, ma l'output è adattato a quello richiesto dalla tabella, ovvero una lista di righe aventi ognuna due colonne, *dato* e *valore*.
+The function is very similar to that of the datasource `general-counters`, but the output is adjusted to the format required by the table, that is, a list of rows each one having two columns: *information* and *value*.
 
-Crea un nuovo widget di tipo `Table` nella pagina `dettaglio` e configuralo come segue:
+Create a new widget of type `Table` in the page `details` and configure it as follows:
 
 - Name: `table`
-- Title: `Dati Sanitari - ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? Cyclotron.parameters.selectedRegion.Regione : 'Italia'}`
-- Data Source: `dati-sanitari`
+- Title: `Health Situation - ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? Cyclotron.parameters.selectedRegion.Regione : 'Italy'}`
+- Data Source: `health-situation`
 - Omit Headers: `true`
 - Grid Rows: `2`
 - Grid Columns: `1`
 
-Il titolo contiene del codice JavaScript inline, indicato dalla notazione `${}`. In questo caso, il codice aggiunge al titolo del widget il nome della regione selezionata, se presente, oppure la stringa `Italia`.
+The title includes some inline JavaScript code, identified by the notation `${}`. In this case, the code appends to the widget title either the name of the selected region, if any, or the string `Italy`.
 
-Alla proprietà *Columns*, aggiungi due colonne e, nel campo *Name*, inserisci `dato` per la prima, `valore` per la seconda, ovvero i nomi assegnati alle colonne nel processore della datasource.
+Under the property *Columns*, add two columns and fill the *Name* field by entering `information` for the first column, `value` for the second one, i.e., the names assigned to the columns inside the datasource processor.
 
-### 8. Grafico a Barre
+### 8. Bar Chart
 
-Per creare il grafico a barre, è necessario configurare una nuova datasource di tipo `JSON` che legga i dati a livello provinciale, contenuti nel file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-province.json.
+In order to create the bar chart, a new `JSON` datasource is required to retrieve data at provincial level from the file https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-province.json.
 
-Crea una datasource `JSON` con le seguenti proprietà:
+Create a datasource of type `JSON` with the following properties:
 
-- Name: `dati-provinciali`
+- Name: `provincial-data`
 - URL: `https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json`
 - Preload: `true`
 - Deferred: `true`
 
-E un'altra di tipo `JavaScript`, simile a quelle create in precedenza, che elaborerà i dati provinciali per la regione selezionata oppure regionali per tutta la nazione:
+And another one of type `JavaScript`, similar to those already created, which will process either provincial data for the selected region or regional data for the whole nation:
 
-- Name: `suddivisione-casi`
+- Name: `distribution-of-cases`
 - Subscription To Parameters: `selectedDate`, `selectedRegion`
 - Processor:
 
@@ -448,7 +447,7 @@ e = function(promise){
     var result = [];
     var day = Cyclotron.parameters.selectedDate;
     var region = Cyclotron.parameters.selectedRegion;
-    var datasource = (region && region.Regione ? 'dati-provinciali' : 'regional-data');
+    var datasource = (region && region.Regione ? 'provincial-data' : 'regional-data');
     
     Cyclotron.dataSources[datasource].execute().then(function(dataset){
         var dayData = _.filter(dataset['0'].data, function(d){
@@ -459,10 +458,10 @@ e = function(promise){
             }
         });
         
-        _.each(dayData, function(zona){
+        _.each(dayData, function(area){
             result.push({
-                'Zona': (region && region.Regione ? zona.denominazione_provincia : zona.denominazione_regione),
-                'Casi Totali': zona.totale_casi
+                'Area': (region && region.Regione ? area.denominazione_provincia : area.denominazione_regione),
+                'Total Cases': area.totale_casi
             });
         });
         
@@ -471,11 +470,11 @@ e = function(promise){
 }
 ```
 
-Il grafico avrà sull'asse orizzontale i nomi delle province o delle regioni. Nella pagina `dettaglio` crea un widget di tipo `Google Charts` con la seguente configurazione:
+The chart will have the names of the provinces or regions on the horizontal axis. In the page `details`, create a widget of type `Google Charts` with the following configuration:
 
 - Name: `barchart`
-- Title: `Casi Totali per ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? 'Provincia' : 'Regione'}`
-- Data Source: `suddivisione-casi`
+- Title: `Total Cases per ${Cyclotron.parameters.selectedRegion && Cyclotron.parameters.selectedRegion.Regione ? 'Province' : 'Region'}`
+- Data Source: `distribution-of-cases`
 - Chart Type: `ColumnChart`
 - Grid Rows: `2`
 - Grid Columns: `2`
@@ -497,9 +496,9 @@ Il grafico avrà sull'asse orizzontale i nomi delle province o delle regioni. Ne
 }
 ```
 
-Questo è un esempio di alcune delle opzioni con cui è possibile personalizzare il grafico. La lista completa è disponibile nella documentazione della libreria Google Charts.
+These are some of the options available to customize the chart. The complete list can be consulted in the documentation of the Google Charts library.
 
-### 9. Tabella di Confronto con la Popolazione e Fonte OData
+### 9. Table of Comparison with the Population and OData Datasource
 
 Anche per il prossimo widget servirà una nuova datasource, questa volta di tipo `OData`, poiché il portale DatiOpen.it mette a disposizione tramite il proprio servizio OData i dati sulla popolazione residente raccolti da ISTAT durante il censimento del 2011.
 
