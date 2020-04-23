@@ -122,6 +122,10 @@ erica.tomaselli:
   name        : "Erica Tomaselli"
   bio         : "Software Engineer, Dedagroup spa"
   avatar      : "/assets/images/avatar.jpeg"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:erica.tomaselli@dedagroup.it"
 
 alberto.carotti: 
   name        : "Alberto Carotti"
