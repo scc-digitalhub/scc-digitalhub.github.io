@@ -121,7 +121,7 @@ msaloni:
 erica.tomaselli: 
   name        : "Erica Tomaselli"
   bio         : "Software Engineer, Dedagroup spa"
-  avatar      : "/assets/images/avatar.jpeg"
+  avatar      : "https://my.fbk.eu/fbk-api/v2/picture/ertomaselli"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
