@@ -130,4 +130,11 @@ erica.tomaselli:
 alberto.carotti: 
   name        : "Alberto Carotti"
   bio         : "Software Engineer, Dedagroup spa"
-  avatar      : "/assets/images/avatar.jpeg"
+  avatar      : "https://github.com/alb-car/dh-posts-resources/blob/master/misc-resources/avatar.jpg"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:alberto.carotti@dedagroup.it"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://www.linkedin.com/in/alberto-carotti-2b9885150/" 
