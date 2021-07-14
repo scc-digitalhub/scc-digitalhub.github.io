@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Dremio Tutorial - Virtual Datasets Based on Heterogeneous Sources"
-date:   2020-04-16 17:31:34 +0200
+date:   2021-07-14 18:00:00 +0200
 categories: platform
 author: erica.tomaselli
 ---
