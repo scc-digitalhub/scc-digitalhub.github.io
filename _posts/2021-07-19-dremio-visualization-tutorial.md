@@ -9,7 +9,9 @@ author: erica.tomaselli
 
 Other tools can query Dremio via its ODBC, JDBC, REST and Arrow Flight interfaces as if it were a relational database and remain unaware of the underlying physical data sources. A list of clients and the instructions for connecting them to Dremio is included in the [official documentation](https://docs.dremio.com/client-applications/).
 
-This tutorial covers how to connect to Dremio from WSO2 Data Services Server (DSS) and visualize its data on Cyclotron. Both DSS and Cyclotron are components of the Digital Hub platform. Specifically, you will create a Cyclotron dashboard that depicts the spread of the pandemics in Italy through several charts.
+This tutorial covers how to connect to Dremio from WSO2 Data Services Server (DSS) and visualize its data on Cyclotron. Both DSS and Cyclotron are components of the Digital Hub platform. Specifically, you will create a Cyclotron dashboard that depicts the spread of the Covid-19 pandemics in Italy through several charts.
+
+On the official Dremio website you can find more [tutorials](https://www.dremio.com/tutorials/) on how to visualize Dremio data with common tools such as Tableau, Power BI, Microsoft Excel and Apache Superset.
 
 ### Prerequisites
 
@@ -19,6 +21,8 @@ This tutorial covers how to connect to Dremio from WSO2 Data Services Server (DS
 In order to connect DSS to Dremio, you need to place the OSGi bundle for Dremio JDBC Driver into DSS dropins folder. If you downloaded Dremio from the [Digital Hub repository](https://github.com/scc-digitalhub/dremio-oss/tree/multitenancy), you can find the bundle JAR file inside the [/bundle folder](https://github.com/scc-digitalhub/dremio-oss/tree/multitenancy/bundle). In order to use it, copy the file to <DSS_PRODUCT_HOME>/repository/components/dropins and restart DSS.
 
 ### 1. Creating a Service and a Resource on DSS
+
+**NOTE:** DSS queries throughout the tutorial are formulated assuming Dremio datasets are found in the home space of user "dremio" ("@dremio"). If you placed them elsewhere, be sure to update the SQL queries accordingly.
 
 Open the DSS interface and click on the **Create** button to create a new service. Name it "covid_analysis", click on **Next**, then click on **Add New Datasource**. Configure a datasource as follows:
 
@@ -36,7 +40,7 @@ Test the connection to verify that everything is set properly, then save the new
 
 - Query ID: `get_national_data`
 - Datasource: `dremio`
-- SQL: `SELECT data, ricoverati_con_sintomi, terapia_intensiva, totale_ospedalizzati, isolamento_domiciliare, totale_positivi FROM "@john@localten"."dpc-covid19-ita-andamento-nazionale"`
+- SQL: `SELECT data, ricoverati_con_sintomi, terapia_intensiva, totale_ospedalizzati, isolamento_domiciliare, totale_positivi FROM "@dremio"."dpc-covid19-ita-andamento-nazionale"`
 
 Click on **Generate Response**, then scroll down to the section *Result (Output Mapping)* and configure the following properties:
 
@@ -84,8 +88,8 @@ On DSS, click on the "covid_analysis" service, then on **Edit Data Service (Wiza
 
 ```
 SELECT dimessi_guariti, deceduti, totale_casi
-FROM "@john@localten"."dpc-covid19-ita-andamento-nazionale"
-WHERE data IN (SELECT MAX(data) FROM "@john@localten"."covid19-ita-regioni-with-population")
+FROM "@dremio"."dpc-covid19-ita-andamento-nazionale"
+WHERE data IN (SELECT MAX(data) FROM "@dremio"."covid19-ita-regioni-with-population")
 ```
 
 Click on **Generate Response**, then scroll down to the section *Result (Output Mapping)* and configure the following properties:
@@ -126,9 +130,9 @@ Start by creating a resource that represents the population of a given region an
 - SQL:
 
 ```
-SELECT Regione, Totale FROM "@john@localten"."censimento-2011-conformed" WHERE Regione=:region
+SELECT Regione, Totale FROM "@dremio"."censimento-2011-conformed" WHERE Regione=:region
 UNION
-SELECT 'Italia', SUM(Totale) FROM "@john@localten"."censimento-2011-conformed"
+SELECT 'Italia', SUM(Totale) FROM "@dremio"."censimento-2011-conformed"
 ```
 
 Click on **Generate Input Mappings** and you will see the input mapping "region" added to the *Input Mappings* section. Click on the **Edit** action next to it, change the *SQL Type* to `QUERY_STRING`, save and return to the main configuration.
@@ -168,7 +172,7 @@ On DSS, click on the "covid_analysis" service, then on **Edit Data Service (Wiza
 - SQL:
 
 ```
-SELECT data, ricoverati_con_sintomi, terapia_intensiva, totale_ospedalizzati, isolamento_domiciliare, totale_positivi FROM "@john@localten"."covid19-ita-regioni-per-100k" WHERE denominazione_regione=:region
+SELECT data, ricoverati_con_sintomi, terapia_intensiva, totale_ospedalizzati, isolamento_domiciliare, totale_positivi FROM "@dremio"."covid19-ita-regioni-per-100k" WHERE denominazione_regione=:region
 ```
 
 Click on **Generate Input Mappings** and you will see again the input mapping "region" added to the *Input Mappings* section. Change its *SQL Type* to `QUERY_STRING`, save and return to the main configuration.
@@ -213,8 +217,8 @@ Let us suppose you want to visualize a table with the maximum number of infected
 
 ```
 SELECT denominazione_regione, dimessi_guariti, deceduti, totale_casi
-FROM "@john@localten"."covid19-ita-regioni-with-population"
-WHERE data IN (SELECT MAX(data) FROM "@john@localten"."covid19-ita-regioni-with-population")
+FROM "@dremio"."covid19-ita-regioni-with-population"
+WHERE data IN (SELECT MAX(data) FROM "@dremio"."covid19-ita-regioni-with-population")
 ```
 
 Click on **Generate Response**, then scroll down to the section *Result (Output Mapping)* and configure the following properties:
@@ -257,8 +261,8 @@ Edit the "covid_analysis" service to add the following query:
 
 ```
 SELECT denominazione_provincia, totale_casi
-FROM "@john@localten"."covid19-ita-province-reduced"
-WHERE denominazione_regione=:region AND data IN (SELECT MAX(data) FROM "@john@localten"."covid19-ita-province-reduced")
+FROM "@dremio"."covid19-ita-province-reduced"
+WHERE denominazione_regione=:region AND data IN (SELECT MAX(data) FROM "@dremio"."covid19-ita-province-reduced")
 ```
 
 Click on **Generate Input Mappings**, change the *SQL Type* of the "region" input mapping to `QUERY_STRING`, save and return to the main configuration.
@@ -298,7 +302,7 @@ The last resource required should provide a list of region names that will popul
 - SQL:
 
 ```
-SELECT DISTINCT Regione FROM "@john@localten"."censimento-2011-conformed" ORDER BY Regione
+SELECT DISTINCT Regione FROM "@dremio"."censimento-2011-conformed" ORDER BY Regione
 ```
 
 Note that the same query would work with any of the Covid datasets as well. Click on **Generate Response**, then scroll down to the section *Result (Output Mapping)* and configure the following properties:
