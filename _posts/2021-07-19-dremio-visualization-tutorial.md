@@ -155,13 +155,15 @@ Click on **Generate Response**, then scroll down to the section *Result (Output 
 }
 ```
 
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/dss-query2.png)
+
 Save the query, navigate to the *Resources* page and add a new resource configured as follows:
 
 - Resource Path: `region-population`
 - Resource Method: `GET`
 - Query ID: `get_region_population`
 
-Click on **Save**, then on **Finish** and the service will be redeployed. You can now test the resource by making a GET request to `https://<your_dss_ip_and_port>/services/covid_analysis/region-population?region='Abruzzo'`.
+As you selected a query that has an input mapping, a query parameter is automatically added to the resource. Click on **Save**, then on **Finish** and the service will be redeployed. You can now test the resource by making a GET request to `https://<your_dss_ip_and_port>/services/covid_analysis/region-population?region='Abruzzo'`.
 
 ### 4. Creating a Dynamic Resource for Positive Cases per 100000 People
 
@@ -305,7 +307,7 @@ The last resource required should provide a list of region names that will popul
 SELECT DISTINCT Regione FROM "@dremio"."censimento-2011-conformed" ORDER BY Regione
 ```
 
-Note that the same query would work with any of the Covid datasets as well. Click on **Generate Response**, then scroll down to the section *Result (Output Mapping)* and configure the following properties:
+Note that the same query would work with any of the Covid datasets as well, just replacing column "Regione" with "denominazione_regione". Click on **Generate Response**, then scroll down to the section *Result (Output Mapping)* and configure the following properties:
 
 - Output type: `JSON`
 - Text area:
@@ -343,12 +345,14 @@ Open Cyclotron user interface and create a new dashboard with the following deta
 - Show Dashboard Sidebar: `False`
 - Show Dashboard Controls (click on **Additional Properties** to find it): `False`
 
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/cyclotron-details.png)
+
 Navigate to the *Pages* section, add a page and click on it. Set the following layout properties:
 
 - Grid Columns: `5`
 - Grid Rows: `8`
 
-Click on **Add Widget** and click on *Widget 1* to configure it. Choose the type `Header`, as it will display the dashboard title and the region drop-down menu. Configure it as follows:
+Click on **Add Widget**, then on *Widget 1* to configure it. Choose the type `Header`, as it will display the dashboard title. Configure it as follows:
 
 - Title: `Covid-19 Spreading and Hospital Situation`
 - Show Title: `True`
@@ -382,6 +386,8 @@ Navigate to the *Parameters* section and add two parameters. Click on the first 
 - Show in URL: `False`
 - Editable in Header: `False`
 
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/cyclotron-param1.png)
+
 Now configure the second parameter, which will be visualized as a drop-down menu in the Header widget:
 
 - Name: `region`
@@ -394,7 +400,11 @@ Click on **Additional Properties**, select **Edit** and configure the following 
 - Editor Type: `dropdown`
 - Data Source: `regions`
 
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/cyclotron-param1.png)
+
 If you save the dashboard and preview it, you can see the current dashboard state with its first widget.
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/dashboard1.png)
 
 ### 9. Visualizing National Counters
 
@@ -418,6 +428,8 @@ Navigate to the *Pages* section and add three widgets of type `Number` to the pa
 - Grid Columns: `1`
 
 Click on **Add Number** and set the property **Number** of *number 0* to `#{totale_casi}` (the syntax `#{}` indicates which data source field to read).
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/dashboard2.png)
 
 Configure the second widget similarly:
 
@@ -478,7 +490,11 @@ e = function(dataSet){
 }
 ```
 
-Now navigate to the *Pages* section and add two widgets of type `Google Charts` to the page you created before. Drag the first one between the "Total Cases" and the "Recovered" `Number` widgets, then the second one between the "Recovered" and the "Deceased" widgets, to improve their organization on the dashboard. Configure the first one with the following properties:
+Now navigate to the *Pages* section and add two widgets of type `Google Charts` to the page you created before. Drag the first one between the "Total Cases" and the "Recovered" `Number` widgets, then the second one between the "Recovered" and the "Deceased" widgets, to improve their organization on the dashboard.
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/dashboard3.png)
+
+Configure the first one with the following properties:
 
 - Title: `Evolution of National Positive Cases`
 - Data Source: `national-data`
@@ -497,7 +513,7 @@ Now navigate to the *Pages* section and add two widgets of type `Google Charts` 
 - Grid Rows: `3`
 - Grid Columns: `4`
 
-Click on **Add Formatter** and add a function to give timestamps a more readable format:
+Click on **Add Formatter** and configure *formatter 0* with a function to give timestamps a more readable format:
 
 - Column Name: `day`
 - Formatter: `function(value){return moment(value, 'YYYY-MM-DDTHH:mm:ss').format('MMM DD \'YY');}`
@@ -562,6 +578,8 @@ Click on **Additional Properties**, select **Query Parameters** and add the foll
 - value: `'${Cyclotron.parameters['region']}'`
 
 Then click again on **Additional Properties**, select **Subscription To Parameters** and add the subscription to `region`. Now the data source will execute again whenever a new region is selected.
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/dashboard4.png)
 
 Navigate to the *Pages* section and add the following `Google Charts` widget to the page (the title contains inline Javascript to display the name of the selected region):
 
@@ -668,6 +686,8 @@ Add four columns and configure them as follows:
 - Name: `totale_casi`
 - Label: `Total Cases`
 
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/dashboard5.png)
+
 ### 15. Visualizing Provincial Data
 
 The last widget that will compose the dashboard is another table for provincial data. Navigate to the *Data Sources* section and add the following JSON data source:
@@ -711,3 +731,7 @@ Add two columns configured as follows:
 ### 16. Final Notes
 
 You may notice that the data displayed on column chart widgets is cropped, i.e., some data is missing on the right side of the chart. This happens because columns cannot be less than 1 pixel wide. As you are displaying a lot of data points, a solution would be to aggregate the results in the DSS queries, for example grouping the data by week or month instead of selecting single days. This would also improve charts readability.
+
+Here is the dashboard that you should now visualize:
+
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/dashboard6.png)
