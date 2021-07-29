@@ -400,7 +400,7 @@ Click on **Additional Properties**, select **Edit** and configure the following 
 - Editor Type: `dropdown`
 - Data Source: `regions`
 
-![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/cyclotron-param1.png)
+![alt text](https://raw.githubusercontent.com/etomaselli/hello-world/master/tutorial-dremio/cyclotron-param2.png)
 
 If you save the dashboard and preview it, you can see the current dashboard state with its first widget.
 
