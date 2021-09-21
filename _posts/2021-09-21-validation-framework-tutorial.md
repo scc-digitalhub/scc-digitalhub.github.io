@@ -182,7 +182,7 @@ All these metadata documents are stored by the back-end on the *MongoDB* instanc
 
 ### UI
 
-<img align="right" height="140" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/dashboard.png">
+<img align="right" width="340" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/dashboard.png">
 
 Open the UI instance on your browser and, after logging in, you will be welcomed to the **Dashboard**. On the left is the navigation menu, which will expand as we travel through its tree-like structure.
 
@@ -196,7 +196,7 @@ As expected, the **experiment's overview** appears, with little information. Cli
 
 The **list of runs** is presented. Only `companies_run` should be present, so click on its *VIEW* button.
 
-<img align="right" height="350" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/full_menu.png">
+<img align="right" width="200" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/full_menu.png">
 
 The **run's overview** is introduced and some summary information is presented, like the run's status or the libraries used. On the left, as well as on the bottom, you can access specific documents:
 * *Artifact metadata*: This simple section lists the persisted files and their location.
