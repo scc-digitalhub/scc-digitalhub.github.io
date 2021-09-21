@@ -182,9 +182,9 @@ All these metadata documents are stored by the back-end on the *MongoDB* instanc
 
 ### UI
 
-<img align="right" width="340" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/dashboard.png">
-
 Open the UI instance on your browser and, after logging in, you will be welcomed to the **Dashboard**. On the left is the navigation menu, which will expand as we travel through its tree-like structure.
+
+<img width="600" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/dashboard.png">
 
 Click on *Projects* and a **list of projects** will appear. Likely, it will only contain the one we used in the Datajudge section, as projects without any documents associated do not show up. You also can't see projects you do not have permissions for in the identity provider's configuration. Click on the *VIEW* button to the right.
 
