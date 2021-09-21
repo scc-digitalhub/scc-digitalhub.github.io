@@ -182,6 +182,8 @@ All these metadata documents are stored by the back-end on the *MongoDB* instanc
 
 ### UI
 
+<img align="right" height="140" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/dashboard.png">
+
 Open the UI instance on your browser and, after logging in, you will be welcomed to the **Dashboard**. On the left is the navigation menu, which will expand as we travel through its tree-like structure.
 
 Click on *Projects* and a **list of projects** will appear. Likely, it will only contain the one we used in the Datajudge section, as projects without any documents associated do not show up. You also can't see projects you do not have permissions for in the identity provider's configuration. Click on the *VIEW* button to the right.
@@ -193,6 +195,8 @@ You will now see a **list of experiments**. Unless someone else has been creatin
 As expected, the **experiment's overview** appears, with little information. Click on *Runs*.
 
 The **list of runs** is presented. Only `companies_run` should be present, so click on its *VIEW* button.
+
+<img align="right" height="350" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/full_menu.png">
 
 The **run's overview** is introduced and some summary information is presented, like the run's status or the libraries used. On the left, as well as on the bottom, you can access specific documents:
 * *Artifact metadata*: This simple section lists the persisted files and their location.
