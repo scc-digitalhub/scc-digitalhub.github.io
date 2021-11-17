@@ -76,7 +76,7 @@ As some tools depend on others, we will configure them in the order they are nee
 
 ### MinIO
 
-<img align="right" width="200" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/images/minio.png">
+<img align="right" width="400" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/images/minio.png">
 
 As MinIO is a cloud storage service, all you need to do is upload the schema file (provided in the [schema](#schema) section) to a bucket you have access to.
 
