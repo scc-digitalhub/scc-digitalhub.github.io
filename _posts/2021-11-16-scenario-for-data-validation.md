@@ -42,7 +42,7 @@ Let's take a quick look at the data. The [direct link](https://www.comune.trento
 
 Here are the header and a couple records:
 
-```
+```csv
 strada;desvia;percorso;lato;tratto;note;data pulizia;orario pulizia inizio;orario pulizia fine;divieto di sosta inizio;divieto di sosta fine;data posizionamento segnaletica;data prima pubblicazione;data aggiornamento
 3030;PIAZZA RAFFAELLO SANZIO;8;entrambi;da incrocio  Via A. Manzoni ad inizio Via G.D. Romagnosi;;27/09/21;20.15;04.00;19.00;05.00;23/09/21;22/09/21;
 120;VIA F. AMBROSI;8;entrambi;;;27/09/21;20.15;04.00;19.00;05.00;23/09/21;22/09/21;
@@ -75,6 +75,9 @@ Let's configure them for our scenario.
 As some tools depend on others, we will configure them in the order they are needed.
 
 ### MinIO
+
+<img align="right" width="200" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/images/minio.png">
+
 As MinIO is a cloud storage service, all you need to do is upload the schema file (provided in the [schema](#schema) section) to a bucket you have access to.
 
 Access your MinIO instance, select the bucket on the left section, and drag and drop the schema file to the right section.
@@ -125,7 +128,7 @@ Nuclio configuration is complete. The function you have generated is triggered b
 The function's address is displayed in the *Code* tab, on the right section and is a value you will need to configure in *Apache NiFi*. It may look similar to `https://localhost:54671`, but if your Nuclio instance is remote, you may need to contact its administrator to know the path to your function.
 
 The function is called through a *POST* request, and its body should use the following *JSON* format:
-```
+```json
 {
     "experimentId": "experiment_id",
     "resourcePathUri": "file_to_validate",

@@ -955,9 +955,9 @@ experimentId: street_cleaning_exp
 fileToValidate: https://path/to/file_to_validate.csv
 minioAccessId (sensitive value): minio_username
 minioAccessSecret (sensitive value): minio_password
-minioBucket: analisifiliera
-minioUrl: https://minio.coinnovationlab.it
-nuclioFunctionAddress: http://nome-funzione.nuclio.svc.cluster.local:8080
+minioBucket: bucket_name
+minioUrl: https://minio_instance
+nuclioFunctionAddress: http://nuclio_function_address
 resourceName: Street Cleaning
 resourcePathUri: street_cleaning.csv
 resourceSchemaUri: street_cleaning_schema.json
@@ -3753,5 +3753,5 @@ CREATE TABLE #{tableName} (
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>11/16/2021 16:13:48 CET</timestamp>
+    <timestamp>11/17/2021 16:11:59 CET</timestamp>
 </template>
