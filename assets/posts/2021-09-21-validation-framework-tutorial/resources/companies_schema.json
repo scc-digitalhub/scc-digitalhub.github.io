@@ -1,0 +1,38 @@
+{
+    "fields": [
+        {
+            "name": "id",
+            "description": "ID (1)",
+            "type": "integer",
+            "constraints": {
+                "required": true,
+                "unique": true
+            },
+            "errors": {
+                "severity": 5
+            }
+        },
+        {
+            "name": "name",
+            "description": "Name (2)",
+            "type": "string",
+            "constraints": {
+                "required": true
+            },
+            "errors": {
+                "severity": 1
+            }
+        },
+        {
+            "name": "n_employees",
+            "description": "Number of Employees (3)",
+            "type": "integer",
+            "constraints": {
+                "minimum": 1
+            },
+            "errors": {
+                "severity": 2
+            }
+        }
+    ]
+}

@@ -60,10 +60,10 @@ An instance of [AAC](https://github.com/scc-digitalhub/AAC) is needed to act as 
 
 ### Data
 
-Obviously some data and its schema must be available, either locally or on the cloud. You can download [this sample data](https://github.com/alb-car/dh-posts-resources/blob/master/validation-tutorial/resources/companies_data.csv) and [its schema](https://github.com/alb-car/dh-posts-resources/blob/master/validation-tutorial/resources/companies_schema.json) to follow the tutorial.
+Obviously some data and its schema must be available, either locally or on the cloud. You can download [this sample data](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-09-21-validation-framework-tutorial/resources/companies_data.csv) and [its schema](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-09-21-validation-framework-tutorial/resources/companies_schema.json) to follow the tutorial.
 
 Let's look at a few rows from `companies_data.csv`:
-```
+```csv
 id,name,employees
 1,Tech Srl,20
 ,Programming GmbH,29
@@ -81,7 +81,7 @@ The schema file lists these rules. In the sample, it is written in [Frictionless
 
 Let's inspect a portion of `companies_schema.json`:
 
-```
+```json
 {
     "fields": [
         {
@@ -119,12 +119,12 @@ We are ready to validate this data against its schema and inspect the results.
 *Datajudge* is a Python library and its usage involves creating a **data resource** that's linked to the data, creating a **client** that's linked to the metadata store (the back-end for storing validation documents), creating a **run** which specifies the validation library to use and finally commanding which documents the run should generate.
 
 First, **import** Datajudge:
-```
+```python
 import datajudge as dj
 ```
 
 Then, we instantiate a **data resource**. Since we want to validate data (and not just profile it), we provide the path to the data and the path to the schema. Although optional, we also give it a name.
-```
+```python
 data_resource = dj.DataResource(
         "path/to/companies_data.csv",
         schema="path/to/companies_schema.json",
@@ -133,7 +133,7 @@ data_resource = dj.DataResource(
 ```
 
 Next is the **client**, which we link to the metadata store by entering its address and authentication for it. We also need a project ID we have rights for on the identity provider. In this example, the ID is `proj1`, but it may vary depending on the configuration of the identity provider you're using. Giving a name to the experiment is optional.
-```
+```python
 metadata_store_config = {
         "auth": "oauth",
         "token": "your_implicit_token"
@@ -148,12 +148,12 @@ client = dj.Client(
 ```
 
 Create a **run** and specify `frictionless` as the validation library to use. Choosing a run ID is optional.
-```
+```python
 run = client.create_run(data_resource, "frictionless", run_id="companies_run")
 ```
 
 Finally, we determine which documents we want to produce. Usually, we want all of them:
-```
+```python
 with run:
     run.log_data_resource()
     run.log_short_report()
@@ -169,14 +169,14 @@ Respectively:
 By running any of these methods, an additional document is also generated, describing the run's *environment*.
 
 It's also possible to persist specific artifacts in a specific location. To keep it simple and see the results, let's do it for the full report, by adding a line within the run context:
-```
+```python
 with run:
     ...
     run.persist_full_report()
 ```
 This example will create a local file, containing a verbose report, and save an additional, simple document in the metadata store.
 
-A script performing all these operations is available [here](https://github.com/alb-car/dh-posts-resources/blob/master/validation-tutorial/resources/run_datajudge.py). The `config` *dict* contains all the values that will be passed as arguments to the methods, so before executing this script, you will have to update `config` to fit your needs.
+A script performing all these operations is available [here](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-09-21-validation-framework-tutorial/resources/run_datajudge.py). The `config` *dict* contains all the values that will be passed as arguments to the methods, so before executing this script, you will have to update `config` to fit your needs.
 
 All these metadata documents are stored by the back-end on the *MongoDB* instance it is configured to use. The back-end also provides end-points to serve these documents to the UI, which we will now use to view them.
 
@@ -184,7 +184,7 @@ All these metadata documents are stored by the back-end on the *MongoDB* instanc
 
 Open the UI instance on your browser and, after logging in, you will be welcomed to the **Dashboard**. On the left is the navigation menu, which will expand as we travel through its tree-like structure.
 
-<img width="600" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/dashboard.png">
+<img width="600" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-09-21-validation-framework-tutorial/images/dashboard.png">
 
 Click on *Projects* and a **list of projects** will appear. Likely, it will only contain the one we used in the Datajudge section, as projects without any documents associated do not show up. You also can't see projects you do not have permissions for in the identity provider's configuration. Click on the *VIEW* button to the right.
 
@@ -196,7 +196,7 @@ As expected, the **experiment's overview** appears, with little information. Cli
 
 The **list of runs** is presented. Only `companies_run` should be present, so click on its *VIEW* button.
 
-<img align="right" width="200" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-tutorial/images/full_menu.png">
+<img align="right" width="200" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-09-21-validation-framework-tutorial/images/full_menu.png">
 
 The **run's overview** is introduced and some summary information is presented, like the run's status or the libraries used. On the left, as well as on the bottom, you can access specific documents:
 * *Artifact metadata*: This simple section lists the persisted files and their location.
