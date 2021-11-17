@@ -55,7 +55,7 @@ In short, each record mentions a specific street and the date and time during wh
 
 We took a look at the data through a direct link, but [here](https://www.comune.trento.it/Aree-tematiche/Open-Data/Tipologie-di-dati/Tutti-gli-open-data/Pulizia-strade-e-relativi-divieti-di-sosta-autunno-2021) you can see that its fields are supposed to follow certain rules: some cannot be null, some must contain a date or time with a particular format and so on.
 
-These constraints are expressed through a verbose description, which we need to convert into a JSON **schema** file, with a specific structure, for the validation process. The schema has been manually written and can be downloaded [here](https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-scenario/resources/street_cleaning_schema.json).
+These constraints are expressed through a verbose description, which we need to convert into a JSON **schema** file, with a specific structure, for the validation process. The schema has been manually written and can be downloaded [here](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/resources/street_cleaning_schema.json).
 
 Now that we know what the data is about and where to get it, and have a schema file ready, let's see what software we need.
 
@@ -95,7 +95,7 @@ Each user is assigned to a number of projects, identified by an ID. Therefore, y
 
 Once you've accessed your Nuclio instance, create a *new project* (or use a pre-existing one), call it however you prefer and create a *new function*.
 
-Then, click on **Import**, which allows you to import a YAML file that describes the function: a small *Import* button will now appear in the section below and, when clicked, will prompt you to select a file. Pass [this](https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-scenario/resources/validate-data.yaml) file to it, then click *Create*.
+Then, click on **Import**, which allows you to import a YAML file that describes the function: a small *Import* button will now appear in the section below and, when clicked, will prompt you to select a file. Pass [this](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/resources/validate-data_nuclio_function.yaml) file to it, then click *Create*.
 
 Both the function's code and configuration will be imported.
 
@@ -141,17 +141,21 @@ The `experimentId` field is also optional: since it is needed for the validation
 Alternatively, instead of a *JSON* body, a simple *plain text* body may be provided, containing the name of the file (for example, `street_cleaning.csv`). In this case, the function only checks if it is a valid CSV file.
 
 ### Apache NiFi
-Access your NiFi instance, expand the *Operate* menu on the left, and click the *Upload Template* button. Provide the pop-up with [this](https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-scenario/resources/validation_scenario.xml) file.
+Access your NiFi instance, expand the *Operate* menu on the left, and click the *Upload Template* button. Provide the pop-up with [this](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/resources/validation_scenario_nifi_template.xml) file.
 
 Now that the template has been imported, you need to generate a flow with it. Drag the *Template* icon from the top toolbar to the square-patterned area and select the template you just imported (`validation-scenario`).
 
-<img align="right" width="200" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-scenario/images/main_pg.png">
+<img align="right" width="200" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/images/main_pg.png">
 
-A rectangle will appear, bearing the name *"Validation scenario"*. This is a *process group*: you may think of it as a container for data flows. Double-click it to enter it and you will see a number of white rectangles, connected to one another: these are called *processors* and each of them performs an operation. The whole graph is called *flow* and describes a sequence of operations to execute on data.
+A rectangle will appear, bearing the name *"Validation scenario"*. This is a *process group*: you may think of it as a container for data flows.
 
-<img align="right" width="400" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-scenario/images/full_flow.png">
+Double-click it to enter it and you will see a number of white rectangles, connected to one another: these are called *processors* and each of them performs an operation. The whole graph is called *flow* and describes a sequence of operations to execute on data.
 
-Even without prior experience with the tool, you can read the *processors*' names and get an idea of what their tasks are: the **first** one, in the top left, will generate the database tables to store the data, in case it is valid. The **second** one downloads the file we talked about earlier, while the **third** one uploads it to MinIO. After a number of other processors (among which is one that calls the Nuclio function we imported earlier), the flow ends with a fork, sending an e-mail if the data is invalid, or otherwise storing it into the database.
+<img align="right" width="400" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-16-scenario-for-data-validation/images/full_flow.png">
+
+Even without prior experience with the tool, you can read the *processors*' names and get an idea of what their tasks are: the **first** one, in the top left, will generate the database tables to store the data, in case it is valid. The **second** one downloads the file we talked about earlier, while the **third** one uploads it to MinIO.
+
+After a number of other processors (among which is one that calls the Nuclio function we imported earlier), the flow ends with a fork, sending an e-mail if the data is invalid, or otherwise storing it into the database.
 
 Understanding the NiFi flow completely is not necessary, but while importing a template allows to replicate a data flow instantly, some values still need to be configured. In the top left, next to the first processor, is a yellow rectangle, which is simply an annotation, listing all **parameters** that need to be set.
 
