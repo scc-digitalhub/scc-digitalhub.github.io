@@ -418,7 +418,8 @@ You can add templates by dragging <img width="25" src="https://raw.githubusercon
 
 The template will include processors, queues and controller services, allowing you to replicate the flow almost instantly. **Parameter contexts and sensitive values, such as passwords, are not saved in templates**, so you will have to set them again.
 
-You can download the template for this tutorial's flow [here](https://github.com/alb-car/dh-posts-resources/tree/master/misc-resources/nifi-templates). You can import templates to your NiFi instance with the <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/button_upload_template.png"> button from the *Operate* menu.
+You can download the template for this tutorial's flow [here](
+https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-tutorial-gtfs/resources/Handle_GTFS.xml). You can import templates to your NiFi instance with the <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/button_upload_template.png"> button from the *Operate* menu.
 
 ## Conclusions
 
