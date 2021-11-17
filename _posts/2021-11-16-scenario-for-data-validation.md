@@ -99,9 +99,9 @@ Then, click on **Import**, which allows you to import a YAML file that describes
 
 Both the function's code and configuration will be imported.
 
-| :warning: Nuclio versions <1.6.0 |
+| Nuclio versions <1.6.0 |
 | :------------------------------- |
-|If the function's code is not being imported correctly, it's likely that your instance of Nuclio does not support the function's declared `runtime`, which is `3.8` (whose support was introduced together with *3.7*). You may try to work around it by updating the YAML file before importing, changing its `runtime` value to `3.6` or whichever value your instance accepts. The code will be imported, but since *Python 3.7+* is needed for it to work, you will also need to update the function's configuration, under *Build > Image name*, providing a Docker image that supports it.|
+|If the function's code is not being imported correctly, it is likely that your instance of Nuclio does not support the function's declared `runtime`, which is `3.8` (whose support was introduced together with *3.7*). You may try to work around it by updating the YAML file before importing, changing its `runtime` value to `3.6` or whichever value your instance accepts. The code will be imported, but since *Python 3.7+* is needed for it to work, you will also need to update the function's configuration, under *Build > Image name*, providing a Docker image that supports it.|
 
 Regardless, you also need to move to the *Configuration* tab and scroll until you see the *Environment Variables* section and update their values (they may appear in a different order):
 * `DATA_STORE_CONFIG_ENDPOINT_URL`: Address of MinIO instance
@@ -145,13 +145,17 @@ Access your NiFi instance, expand the *Operate* menu on the left, and click the 
 
 Now that the template has been imported, you need to generate a flow with it. Drag the *Template* icon from the top toolbar to the square-patterned area and select the template you just imported (`validation-scenario`).
 
+<img align="right" width="200" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-scenario/images/main_pg.png">
+
 A rectangle will appear, bearing the name *"Validation scenario"*. This is a *process group*: you may think of it as a container for data flows. Double-click it to enter it and you will see a number of white rectangles, connected to one another: these are called *processors* and each of them performs an operation. The whole graph is called *flow* and describes a sequence of operations to execute on data.
+
+<img align="right" width="400" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/validation-scenario/images/full_flow.png">
 
 Even without prior experience with the tool, you can read the *processors*' names and get an idea of what their tasks are: the **first** one, in the top left, will generate the database tables to store the data, in case it is valid. The **second** one downloads the file we talked about earlier, while the **third** one uploads it to MinIO. After a number of other processors (among which is one that calls the Nuclio function we imported earlier), the flow ends with a fork, sending an e-mail if the data is invalid, or otherwise storing it into the database.
 
 Understanding the NiFi flow completely is not necessary, but while importing a template allows to replicate a data flow instantly, some values still need to be configured. In the top left, next to the first processor, is a yellow rectangle, which is simply an annotation, listing all **parameters** that need to be set.
 
-| :warning: Apache NiFi versions <1.10.0 |
+| Apache NiFi versions <1.10.0 |
 | :------------------------------------- |
 |Parameters were introduced in NiFi with version 1.10.0, to replace *variables* (although variables are still supported for backwards compatibility). With earlier versions, you can use variables instead.|
 
