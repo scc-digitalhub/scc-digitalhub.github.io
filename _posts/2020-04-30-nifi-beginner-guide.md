@@ -28,7 +28,7 @@ If you would like to jump straight to a tutorial on how to use NiFi for a real u
 
 *Apache NiFi* is a tool to process large amounts of data in an automated and scalable way, by building a chain of operations to apply on such data, modifying and adapting it depending on its contents.
 
-<img align="right" width="400" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/role.png">
+<img align="right" width="400" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/role.png">
 
 Here are some sample use cases:
 - Execute different operations on data based on contents.
@@ -49,7 +49,7 @@ Among many others, there are processors designed to:
 
 When a processor is added, some configuration is necessary: a processor that executes a query on a database will need to know what database to connect to and the credentials to use.
 
-<img align="right" width="400" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/flow.png">
+<img align="right" width="400" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/flow.png">
 
 The image on the side illustrates an abstraction of a flow to download data from a URL and save it as a *Comma-Separated Values* (*CSV*) file.
 
@@ -67,25 +67,25 @@ Images come from version 1.11 of NiFi. Previous versions may have slight differe
 
 The main screen displays a large, square-patterned area, which is where processors will be placed.
 
-<img align="right" width="400" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui.png">
+<img align="right" width="400" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui.png">
 
 **On the top are two toolbars**: the one above is to add elements to the flow, while the lower one gives an overview of the flow’s status.
 
 **On the left are two small menus**: *Navigate* offers a navigable map of the flow; *Operate* contains buttons to change the state of processors, plus some additional features.
 
-*Navigate* and *Operate* may be reduced by clicking on <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/min.png">, as most actions they involve may be performed by interacting directly on the flow.
+*Navigate* and *Operate* may be reduced by clicking on <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/min.png">, as most actions they involve may be performed by interacting directly on the flow.
 
-Add a ***process group*** by dragging the <img width="25" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_pg.png"> icon to the square-patterned area, input “*A quick flow test*” as name and click *ADD*.
+Add a ***process group*** by dragging the <img width="25" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_pg.png"> icon to the square-patterned area, input “*A quick flow test*” as name and click *ADD*.
 
 For the sake of this guide, **process groups** may be considered equivalent to directories in your computer: just like you wouldn’t want to clutter your *home* directory with loads of unrelated files, you’d rather organize your flows in NiFi with a similar tree-like structure, made of *process groups*.
 
-<img align="left" width="200" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/process_group.png">
+<img align="left" width="200" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/process_group.png">
 
 A rectangle will appear on the flow, with the name you chose and some numbers that will indicate the status of processors within.
 
 **Enter the process group by double-clicking it**.
 
-<img align="right" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/path.png">
+<img align="right" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/path.png">
 
 The flow will appear empty again, but you can see that the path at the bottom has changed.
 
@@ -111,13 +111,13 @@ Let’s add a parameter/variable containing the name of some food you like. Ther
 
 #### Adding a parameter
 
-<img align="right" width="150" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/pc_settings.png">
+<img align="right" width="150" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/pc_settings.png">
 
-Click on the menu button in the top right (<img width="25" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/button_menu.png">) and select “*Parameter Contexts*”. Click on <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/button_plus.png"> in the top right to start adding a new parameter context.
+Click on the menu button in the top right (<img width="25" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/button_menu.png">) and select “*Parameter Contexts*”. Click on <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/button_plus.png"> in the top right to start adding a new parameter context.
 
-In the *SETTINGS* tab, pick a name for the context (description is optional), then switch to the *PARAMETERS* tab and click on the <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/button_plus.png"> button there.
+In the *SETTINGS* tab, pick a name for the context (description is optional), then switch to the *PARAMETERS* tab and click on the <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/button_plus.png"> button there.
 
-<img align="left" width="240" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/pc_add_param.png">
+<img align="left" width="240" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/pc_add_param.png">
 
 *Name* will be how you refer to this parameter, while the important field is *Value*, which is the value NiFi will use whenever it encounters this parameter.
 
@@ -125,9 +125,9 @@ In the *SETTINGS* tab, pick a name for the context (description is optional), th
 
 Click *APPLY* to add the parameter, then click *APPLY* again to complete the creation of the parameter context.
 
-The new context will now be listed in the *NiFi Parameter Contexts* menu, which you may close with <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/button_x.png">.
+The new context will now be listed in the *NiFi Parameter Contexts* menu, which you may close with <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/button_x.png">.
 
-<img align="right" width="200" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/pg_general.png">
+<img align="right" width="200" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/pg_general.png">
 
 Finally, assign the parameter context to the current process group: right click in the square-patterned area and click *Configure*.
 
@@ -137,9 +137,9 @@ You are now ready to add a processor that uses this parameter. You can skip [Add
 
 #### Adding a variable
 
-Right-click on the square-patterned area and click *Variables*. Click <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/button_plus.png"> in the menu that appears to start adding a new variable.
+Right-click on the square-patterned area and click *Variables*. Click <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/button_plus.png"> in the menu that appears to start adding a new variable.
 
-<img align="right" width="400" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/menu_variables.png">
+<img align="right" width="400" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/menu_variables.png">
 
 Input the *Variable Name*, which is how you will refer to this variable, click *OK*, then input its value, which is the value NiFi will use whenever it encounters this variable, and click *OK*.
 
@@ -151,11 +151,11 @@ You are now ready to add a processor that uses this variable.
 
 We will add and configure a processor that simply generates a ***flowfile*** containing some text. "**Flowfile**" is the name of data as it travels through the flow: it will not be saved on your computer, since we won’t add any processors to store it.
 
-<img align="right" width="360" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/menu_add_proc.png">
+<img align="right" width="360" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/menu_add_proc.png">
 
 The type of this processor is called *GenerateFlowFile*: it is generally useful for testing or hard-coding some values.
 
-Drag the <img width="25" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_proc.png"> icon into the square-patterned area to trigger the *Add Processor* prompt.
+Drag the <img width="25" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_proc.png"> icon into the square-patterned area to trigger the *Add Processor* prompt.
 
 Since we already know the name of the processor, we can type it as filter.
 
@@ -163,7 +163,7 @@ When you’re looking for a certain feature, but do not know the type’s name, 
 
 The tag system is, unfortunately, not completely functional: **don’t type more than 1 tag**, or it may not list processors even if they do contain all the tags you listed, just because it expected them in a different order.
 
-<img align="right" width="230" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_proc_on_flow.png">
+<img align="right" width="230" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_proc_on_flow.png">
 
 Double-click the desired type and the processor will appear in the square-patterned area. Double-click it to configure it.
 
@@ -171,7 +171,7 @@ There are 4 tabs: *SETTINGS*, *SCHEDULING*, *PROPERTIES* and *COMMENTS*. These 4
 
 #### SETTINGS
 
-<img align="right" width="280" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/settings_name.png">
+<img align="right" width="280" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/settings_name.png">
 
 The only value we will change is the ***Name***. This is just for our convenience: *Name* has no impact on any feature and different processors may have the same name.
 
@@ -179,7 +179,7 @@ The only value we will change is the ***Name***. This is just for our convenienc
 
 The only value we will change here is ***Run Schedule***, which indicates how often the processor will execute its task.
 
-<img align="right" width="330" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/scheduling_interval.png">
+<img align="right" width="330" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/scheduling_interval.png">
 
 For a root processor, the default value `0 sec` means NiFi will attempt to execute this processor as often as possible.
 
@@ -191,7 +191,7 @@ This setting may seem harmless, but it is **very important: if the processor wer
 
 We only need to change ***Custom Text***, which decides what the processor will write inside the flowfile it generates.
 
-<img align="right" width="400" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_proc_properties.png">
+<img align="right" width="400" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_proc_properties.png">
 
 If you’re using version *1.10* or later of NiFi, then you probably configured a **parameter** named `favorite` during the [Parameters and variables](#parameters-and-variables) section of this document. With previous versions, it should be an equivalent **variable**.
 
@@ -207,7 +207,7 @@ I like ${favorite}
 
 Click *OK* and then click *APPLY*. This processor will generate a flowfile that contains a statement, replacing the parameter/variable `favorite` with its value.
 
-You will notice the processor still has the invalid symbol <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_invalid.png"> on it and, if you hover on it, it will tell you the *Relationship success* is invalid.
+You will notice the processor still has the invalid symbol <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_invalid.png"> on it and, if you hover on it, it will tell you the *Relationship success* is invalid.
 
 This is because we have yet to tell NiFi what to do with the generated flowfile. In the ***SETTINGS*** tab, you probably noticed the *Automatically Terminate Relationship* section on the right.
 
@@ -219,11 +219,11 @@ However, we would like to send the generated flowfile to another processor, whic
 
 We will add a second processor purely to demonstrate how to connect processors and how to inspect flowfiles, so we will not configure it.
 
-Drag the <img width="25" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_proc.png"> icon to the square patterned area and add a new processor. Since we will not configure it, its type doesn't matter, but let’s add a *LogAttribute* processor.
+Drag the <img width="25" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_proc.png"> icon to the square patterned area and add a new processor. Since we will not configure it, its type doesn't matter, but let’s add a *LogAttribute* processor.
 
-<img align="right" width="300" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_rel.png">
+<img align="right" width="300" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_rel.png">
 
-Next, hover on the *GenerateFlowFile* processor you added earlier and a <img width="22" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_rel.png"> icon will appear.
+Next, hover on the *GenerateFlowFile* processor you added earlier and a <img width="22" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_rel.png"> icon will appear.
 
 Drag it to the *LogAttribute* processor, which should glow green, and release it.
 
@@ -235,9 +235,9 @@ A different processor type may have several relationships: *failure* is a common
 
 Click *ADD* to confirm the connection.
 
-<img align="left" width="180" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_simple_flow.png">
+<img align="left" width="180" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_simple_flow.png">
 
-*GenerateFlowFile* is now valid, and the invalid symbol <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_invalid.png"> has been replaced by <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_stop.png">, signaling that the processor is now stopped, but ready to run.
+*GenerateFlowFile* is now valid, and the invalid symbol <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_invalid.png"> has been replaced by <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_stop.png">, signaling that the processor is now stopped, but ready to run.
 
 You will notice a ***queue*** named *success* which contains flowfiles as they transit between the two processors.
 
@@ -245,7 +245,7 @@ The only remaining step is to start the processor and inspect the generated flow
 
 ### Inspecting flowfiles
 
-Right click on the *GenerateFlowFile* processor and click start. The status icon will change from <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_stop.png"> to <img width="20" src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_run.png"> and it will immediately start its task.
+Right click on the *GenerateFlowFile* processor and click start. The status icon will change from <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_stop.png"> to <img width="20" src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_run.png"> and it will immediately start its task.
 
 NiFi’s graphical interface only updates at fixed intervals, so right click anywhere in the square-patterned area and click **Refresh** to see the current progress.
 
@@ -257,13 +257,13 @@ The flowfile in the queue is not being processed by *LogAttribute*, because this
 
 We will now **inspect the queue**. Right click on the queue between the two processors and select ***List queue***.
 
-<img src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/ui_queue.png">
+<img src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/ui_queue.png">
 
-Click on <img src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_view.png"> to view the flowfile's contents. A new tab will open, and you will see that the content of the flowfile is `I like pizza.` (or a different value, depending on what you set earlier).
+Click on <img src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_view.png"> to view the flowfile's contents. A new tab will open, and you will see that the content of the flowfile is `I like pizza.` (or a different value, depending on what you set earlier).
 
 If you see `I like .`, it means NiFi did not find any parameter/variable named `favorite`. Either it was not created, or incorrect syntax was used while configuring the processor’s *PROPERTIES* tab.
 
-If you want to explore further on the topic of debugging, try clicking the <img src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_info.png"> icon to view properties and attributes of the flowfile, or click <img src="https://raw.githubusercontent.com/alb-car/dh-posts-resources/master/nifi-beginner-guide/images/icon_prov.png"> to see its provenance.
+If you want to explore further on the topic of debugging, try clicking the <img src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_info.png"> icon to view properties and attributes of the flowfile, or click <img src="https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2020-04-30-nifi-beginner-guide/images/icon_prov.png"> to see its provenance.
 
 Once you’re done inspecting the flowfile, close all prompts, right-click on the queue and select ***Empty queue*** to remove all queued flowfiles. This comes in handy when you’re just confirming the output of processors, but do not want to perform further operations on flowfiles.
 
