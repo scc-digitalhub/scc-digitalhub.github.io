@@ -96,7 +96,7 @@ Let us suppose Drill has a schema named "testpostgres" that connects to a Postgr
 
 ![alt text](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-18-dremio-connection-to-drill/images/drill-postgres.png)
 
-The same query can thus be executed on both instruments (note that Dremio queries must follow Dremio syntax rules, therefore the escape character is `"` instead of `\``). For example, the following Drill query:
+The same query can thus be executed on both instruments (note that Dremio queries must follow Dremio syntax rules, therefore the escape character is `"` instead of `` ` ``). For example, the following Drill query:
 
 ```
 SELECT Cities.name, Pos.city_id, Pos.guest_id
