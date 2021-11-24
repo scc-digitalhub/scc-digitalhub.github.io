@@ -42,7 +42,7 @@ If you do not have Drill running in distributed mode (with ZooKeeper) and would 
 
 If you do already have Drill deployed and would like to connect to that, verify that its version and the JDBC driver version (currently 1.18.0) match.
 
-To check that Drill is running, you can open its web interface inside a browser (locally the URL will be http://localhost:8047 by default).
+To check that Drill is running, you can open its web interface inside a browser (locally the URL will be "http://localhost:8047" by default).
 
 ![alt text](https://raw.githubusercontent.com/scc-digitalhub/scc-digitalhub.github.io/master/assets/posts/2021-11-18-dremio-connection-to-drill/images/drill-interface.png)
 
@@ -58,14 +58,14 @@ cd dremio-drill-connector
 mvn clean install
 ```
 
-The connector JAR file location will be *dremio-drill-connector/target/dremio-drill-plugin-<version>.jar* (e.g. "dremio-drill-plugin-15.7.0-202106112202490252-2fb62d31.jar").
+The connector JAR file location will be *dremio-drill-connector/target/dremio-drill-plugin-\<version\>.jar* (e.g. "dremio-drill-plugin-15.7.0-202106112202490252-2fb62d31.jar").
 
 ### Dremio Configuration
 
 After building both the driver and the connector, they must be placed inside Dremio directory:
 
-- copy *drill-jdbc-all-1.18.0.jar* file into *<dremio_home>/jars/3rdparty*
-- copy *dremio-drill-plugin-<version>.jar* file into *<dremio_home>/jars*
+- copy *drill-jdbc-all-1.18.0.jar* file into *\<dremio_home\>/jars/3rdparty*
+- copy *dremio-drill-plugin-<version>.jar* file into *\<dremio_home\>/jars*
 
 Finally restart Dremio. Now if you navigate to its web UI and try to add a new external source, you will see Drill listed as a data source type.
 
