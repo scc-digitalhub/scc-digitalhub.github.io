@@ -3,7 +3,7 @@ main:
   - title: "About"
     url: /about/
   - title: "Documentation"
-    url: https://digitalhub.readthedocs.io/
+    url: https://scc-digitalhub.github.io/digitalhub
     target: "_blank"
   - title: "Blog"
     url: /archive/
