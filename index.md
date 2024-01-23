@@ -9,20 +9,20 @@ excerpt: "An Open Source Platform for Digital Transformation, Open Data and Open
 feature_row:
   - image_path: assets/images/gears.jpg
     title: "Modular Architecture"
-    excerpt: "Extensbile Cloud-native platform based on Open Source components"
-    url: "https://scc-digitalhub.github.io/digitalhub/architecture"
+    excerpt: "Extensible cloud-native platform based on open source components"
+    url: "https://scc-digitalhub.github.io/docs/architecture"
     btn_label: "Read More"
     btn_class: "btn--primary"
   - image_path: /assets/images/data.jpg
     title: "Data Services"
-    excerpt: "Extensbile platform for data management, exposure, and Data Mesh scenarios"
-    url: "https://scc-digitalhub.github.io/digitalhub/architecture/#data-engineering"
+    excerpt: "Extensible platform for data management, exposure, and Data Mesh scenarios"
+    url: "https://scc-digitalhub.github.io/docs/architecture/#data-engineering"
     btn_label: "Read More"
     btn_class: "btn--primary"
   - image_path: /assets/images/service.jpg
-    title: "Machine Learining and AI"
-    excerpt: "Embracing the complete lifecycle of ML models, from data preparation and training to experiments tracking and model serving."
-    url: "https://scc-digitalhub.github.io/digitalhub/architecture/#ml-engineering"
+    title: "Machine Learning and AI"
+    excerpt: "Embracing the complete lifecycle of ML models, from data preparation and training to experiments-tracking and model-serving."
+    url: "https://scc-digitalhub.github.io/docs/architecture/#ml-engineering"
     btn_label: "Read More"
     btn_class: "btn--primary"
 ---

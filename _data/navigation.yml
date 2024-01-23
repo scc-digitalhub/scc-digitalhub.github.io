@@ -5,7 +5,7 @@ main:
   - title: "Documentation"
     url: https://scc-digitalhub.github.io/docs
     target: "_blank"
-  - title: "Blog"
+  - title: "Posts"
     url: /archive/
   # - title: "Collections"
   #   url: /collection-archive/
