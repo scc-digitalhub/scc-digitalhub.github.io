@@ -1,0 +1,55 @@
+#bg-animation {
+  position: absolute;
+  left: -200px;
+}
+  
+.impulse-svg {
+  position: absolute;
+  fill: none;
+  stroke: #e3ab4433;
+  stroke-width: 2;
+  z-index: 1;
+}
+
+.impulse-path {
+  stroke-dasharray: 4000.00;
+  stroke-dashoffset: 4000.00;
+}
+
+.impulse {
+  position: absolute;
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  filter: blur(2px);
+  border-radius: 50%;
+  background-color: #e3ab44aa;
+  box-shadow: 0px 0px 16px 10px #e3ab4444;
+  animation: move 5000ms infinite;
+  z-index: 2;
+}
+
+.impulse-trail {
+  position: absolute;
+  display: inline-block;
+  height: 3px;
+  width: 6px;
+  box-shadow: 0px 0px 14px 1px #e3ab4433;
+  animation: move 5000ms infinite;
+  z-index: 2;
+}
+
+@keyframes move {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
