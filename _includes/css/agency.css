@@ -4,7 +4,7 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-body {
+ body {
     overflow-x: hidden;
     font-family: "Noto Sans",sans-serif;
     color: #{{ site.data.template.color.secondary-dark }};
@@ -574,8 +574,16 @@ section h3.section-subheading {
     }
 }
 
-.team-member-container {
-    height: 360px;
+@media(min-width:768px) {
+    .team-member-container {
+        height: 360px;
+    }
+
+    .team-member p {
+        margin-top: 10px;
+        margin-bottom: 0;
+        height: 70px;
+    }
 }
 
 .team-member {
@@ -593,12 +601,6 @@ section h3.section-subheading {
     margin-bottom: 0;
     text-transform: none;
     height: 30px;
-}
-
-.team-member p {
-    margin-top: 10px;
-    margin-bottom: 0;
-    height: 70px;
 }
 
 aside.partners img {
@@ -828,9 +830,21 @@ body {
     top: -2px;
 }
 
-/* Text in features */
+/* Features section */
+@media(max-width:992px) {
+    .feature {
+        padding-bottom: 30px;
+    }
+}
+
+.feature-text-container {
+    height: 70px;
+    line-height: 70px;
+}
+
 .feature-text {
-    height: 80px;
+    display: inline-block;
+    line-height: normal;
 }
 
 /* Image in About section */
