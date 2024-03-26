@@ -583,6 +583,7 @@ section h3.section-subheading {
 }
 
 .team-member img {
+    width: 150px;
     margin: 0 auto;
     border: 7px solid #fff;
 }
@@ -849,6 +850,12 @@ body {
 
 .modal-container {
     width: auto;
+}
+
+#page-contents {
+    position: absolute;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* For displaying team members horizontally */
