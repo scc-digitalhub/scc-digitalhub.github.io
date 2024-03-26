@@ -1,0 +1,41 @@
+@media(min-width:768px) {
+    .team-member-container {
+        height: 360px;
+    }
+
+    .team-member p {
+        margin-top: 10px;
+        margin-bottom: 0;
+        height: 70px;
+    }
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member img {
+    width: 150px;
+    margin: 0 auto;
+    border: 7px solid #fff;
+}
+
+.team-member h4 {
+    margin-top: 25px;
+    margin-bottom: 0;
+    text-transform: none;
+    height: 30px;
+}
+
+/* To display team members horizontally */
+/*
+.team-container {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+.team-member-container {
+    float: none;
+    display: inline-block;
+}
+*/
