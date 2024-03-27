@@ -9,11 +9,6 @@ description: "An open-source platform for digital transformation, open data and 
 
 # Team names, titles and social links
 people:
-- name: Claudio Ballardini
-  pic: img/team/placeholder.png
-  position: Software Engineer, DSLab, FBK
-  links:
-
 - name: Vitor Bezerra
   pic: img/team/vbezerra.jpg
   position: Software Engineer, DSLab, FBK
@@ -36,6 +31,11 @@ people:
 - name: Matteo Chini
   pic: img/team/placeholder.png
   position: Software Developer, DSLab, FBK
+  links:
+
+- name: Jacopo Cristofori
+  pic: img/team/placeholder.png
+  position: DevOps, DSLab, FBK
   links:
 
 - name: Fabio Fais
